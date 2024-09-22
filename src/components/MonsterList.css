@@ -1,0 +1,75 @@
+.monster-list {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 0.5rem;
+  }
+  
+  .monster-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .monster-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .monster-item.selected {
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  
+  .monster-item-content {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .monster-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 25px;
+    margin-right: 1rem;
+  }
+  
+  .monster-item-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .monster-name {
+    font-weight: 500;
+    color: var(--text);
+  }
+  
+  .monster-number {
+    font-size: 0.8rem;
+    color: var(--text-rgb, 0.6);
+  }
+  
+  /* Type background colors */
+  .type-pulse { background-color: rgba(240, 228, 67, 0.2); }
+  .type-void { background-color: rgba(120, 207, 223, 0.2); }
+  .type-gravity { background-color: rgba(200, 165, 255, 0.2); }
+  .type-chrono { background-color: rgba(94, 218, 160, 0.3); }
+  .type-death { background-color: rgba(175, 154, 154, 0.4); }
+  .type-royal { background-color: rgba(241, 172, 23, 0.3); }
+  
+  /* Gradient background for dual types */
+  .type-gradient {
+    background-image: linear-gradient(135deg, 
+      var(--color1) 0%, 
+      var(--color1) 50%, 
+      var(--color2) 50%, 
+      var(--color2) 100%
+    );
+    background-size: 100% 100%;
+  }
