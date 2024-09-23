@@ -1,0 +1,87 @@
+.type-chart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .type-chart-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .type-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    gap: 2px;
+    margin-top: 20px;
+  }
+  
+  .type-chart-cell {
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    height: 40px;
+  }
+  
+  .type-header {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .type-chart-header {
+    display: contents;
+  }
+  
+  .type-chart-row {
+    display: contents;
+  }
+  
+  .corner-cell {
+    font-weight: bold;
+    background-color: #f0f0f0;
+  }
+  
+  .super-effective {
+    background-color: #a3f9a3;
+  }
+  
+  .not-very-effective {
+    background-color: #f9a3a3;
+  }
+  
+  .neutral {
+    background-color: #f0f0f0;
+  }
+  
+  @media (max-width: 768px) {
+    .type-chart-cell {
+      font-size: 12px;
+      min-width: 30px;
+      height: 30px;
+    }
+  }

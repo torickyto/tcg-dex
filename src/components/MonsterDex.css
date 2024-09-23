@@ -1,10 +1,10 @@
 .monster-dex {
-    display: flex;
-    min-height: 100vh;
-    background-color: var(--bg);
-    color: var(--text);
-    transition: all 0.3s ease;
-  }
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: all 0.3s ease;
+}
   
   .monster-dex-content {
     display: flex;
@@ -52,4 +52,30 @@
     --accent-rgb: 107, 164, 229;
     --card-bg: #2a2a3e;
     --card-border: #3a3a4e;
+  }
+
+  .type-chart-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .type-chart-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .type-chart-button span {
+    font-weight: bold;
   }

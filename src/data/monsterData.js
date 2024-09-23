@@ -155,7 +155,7 @@ const monsterData = [
             defense: 70,
             level: 3
           },
-          effect: "When Galactapex is summoned, you may remove all other monsters on the field from play until the end of your next turn. For each monster removed this way, draw one card."
+          effect: "When Titanitick is summoned, you may remove all other monsters on the field from play until the end of your next turn. For each monster removed this way, draw one card."
         },
         {
           id: 37,
@@ -206,7 +206,7 @@ const monsterData = [
               name: "Usurpent",
               types: ["royal"],
               image: "/images/monster/usurpent.png",
-              description: "Many galactic civilizations have risen and fallen in Usurpent's wake. Its scales shimmer with the light of conquered stars, each one said to represent a toppled empire. It's said that Usurpent doesn't truly serve any master, but rather tests the worthiness of cosmic rulers. Those found lacking often face swift downfall.",
+              description: "Throughout history, the most powerful galactic emperors have been those who formed a bond with an Usurpent, making it a symbol of supreme authority and divine right to rule. Its scales shimmer with the light of conquered stars, each one said to represent a toppled empire. It's said that Usurpent doesn't truly serve any master, but rather tests the worthiness of cosmic rulers. Those found lacking often face swift downfall.",
               prevForm: null,
               nextForm: null,
               stats: {
@@ -214,7 +214,7 @@ const monsterData = [
                 defense: 70,
                 level: 5
               },
-              effect: "Whenever the player is attacked, Usurpent loses 10 attack. Once per game, you can banish Regalidrake to end the current phase immediately and skip to your next turn."
+              effect: "Whenever the player is attacked, Usurpent loses 10 attack. Once per game, you can banish Usurpent to end the current phase immediately and skip to your next turn."
             }
   ];
   

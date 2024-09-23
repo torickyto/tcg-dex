@@ -3,8 +3,10 @@ import MonsterList from './MonsterList';
 import MonsterDetail from './MonsterDetail';
 import SearchBar from './SearchBar';
 import ThemeToggle from './ThemeToggle';
+import TypeChart from './TypeChart';
 import monsterData from '../data/monsterData';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BookOpen } from 'lucide-react';
 import './MonsterDex.css';
 
 function MonsterDex() {
@@ -12,6 +14,7 @@ function MonsterDex() {
   const [selectedMonster, setSelectedMonster] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isTypeChartOpen, setIsTypeChartOpen] = useState(false);
 
   useEffect(() => {
     setMonsters(monsterData);
@@ -57,6 +60,11 @@ function MonsterDex() {
         </div>
       </div>
       <ThemeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <button className="type-chart-button" onClick={() => setIsTypeChartOpen(true)}>
+        <BookOpen size={24} />
+        <span>Type Chart</span>
+      </button>
+      <TypeChart isOpen={isTypeChartOpen} onClose={() => setIsTypeChartOpen(false)} />
     </div>
   );
 }
