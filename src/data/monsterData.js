@@ -128,6 +128,66 @@ const monsterData = [
         },
         effect: "Once per game, when Cosmajesty would be destroyed, you can instead remove it from play until the start of your next turn. When it returns, draw 2 cards."      },
         {
+          id: 10,
+          name: "Miteor",
+          types: ["parasite"],
+          image: "/images/monster/miteor.png",
+          description: "Miteor, often mistaken for harmless space debris, drifts silently through the cosmos. They survive the vacuum of space by entering a state of suspended animation, awakening only when they detect life. Their presence has led to the mysterious decline of countless alien ecosystems.",
+          prevForm: null,
+          nextForm: 11,
+          stats: {
+            attack: 15,
+            defense: 30,
+            level: 1
+          },
+          effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats."
+        },
+        {
+          id: 11,
+          name: "Titanitick",
+          types: ["parasite", "death"],
+          image: "/images/monster/titanitick.png",
+          description: "Titaniticks are often mistaken for rogue planets or derelict space stations. These parasites are believed to be responsible for the mysterious disappearances of entire star systems. Some theorists propose that Titanitick doesn't simply consume, but rather 'archives' entire civilizations within its interior, preserving them for reasons unknown.",
+          prevForm: 10,
+          nextForm: null,
+          stats: {
+            attack: 35,
+            defense: 70,
+            level: 3
+          },
+          effect: "When Galactapex is summoned, you may remove all other monsters on the field from play until the end of your next turn. For each monster removed this way, draw one card."
+        },
+        {
+          id: 37,
+          name: "Simerant",
+          types: ["primal"],
+          image: "/images/monster/simerant.png",
+          description: "Known for its insatiable appetite for fights, Bratapeti spends its days swinging from vine to vine, looking for its next scuffle. Its bloated belly is a point of pride, slapped with one hand before each confrontation as if to taunt its opponents while making rude gestures with the other.",
+          prevForm: null,
+          nextForm: 38,
+          stats: {
+            attack: 30,
+            defense: 35,
+            level: 1
+          },
+          effect: "When Simerant enters play, it automatically challenges the opponent's strongest monster to a duel. Flip a coin: if heads, Bratapeti's attack doubles for this turn; if tails, it trips and loses its next turn."
+        },
+        {
+          id: 38,
+          name: "Bonapeti",
+          types: ["primal", "parasite"],
+          image: "/images/monster/bonapeti.png",
+          description: "Bonapeti's mournful cries echo through barren landscapes, a haunting testament to its unending hunger. These creatures have been seen trying to eat rocks, soil, and even its own fur, driven by a hunger that can never be sated.",
+          prevForm: 37,
+          nextForm: null,
+          stats: {
+            attack: 50,
+            defense: 55,
+            level: 3
+          },
+          effect: "When Bonapeti enters play, your opponent must discard half their hand (rounded down). Bonapeti cannot act until the next turn."
+        },
+        {
             id: 66,
             name: "Mortibane",
             types: ["death"],
@@ -141,6 +201,21 @@ const monsterData = [
               level: 5
             },
             effect: "Once per summon when Mortibane attacks, banish the target from the game and graveyard."      },
+            {
+              id: 70,
+              name: "Usurpent",
+              types: ["royal"],
+              image: "/images/monster/usurpent.png",
+              description: "Many galactic civilizations have risen and fallen in Usurpent's wake. Its scales shimmer with the light of conquered stars, each one said to represent a toppled empire. It's said that Usurpent doesn't truly serve any master, but rather tests the worthiness of cosmic rulers. Those found lacking often face swift downfall.",
+              prevForm: null,
+              nextForm: null,
+              stats: {
+                attack: 90,
+                defense: 70,
+                level: 5
+              },
+              effect: "Whenever the player is attacked, Usurpent loses 10 attack. Once per game, you can banish Regalidrake to end the current phase immediately and skip to your next turn."
+            }
   ];
   
   export default monsterData;

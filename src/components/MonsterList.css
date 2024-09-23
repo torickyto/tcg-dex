@@ -61,7 +61,9 @@
   .type-gravity { background-color: rgba(200, 165, 255, 0.2); }
   .type-chrono { background-color: rgba(94, 218, 160, 0.3); }
   .type-death { background-color: rgba(175, 154, 154, 0.4); }
-  .type-royal { background-color: rgba(241, 172, 23, 0.3); }
+  .type-royal { background-color: rgba(255, 166, 0, 0.24); }
+  .type-parasite { background-color: rgba(255, 76, 76, 0.26); }
+  .type-primal { background-color: rgba(192, 136, 71, 0.2); }
   
   /* Gradient background for dual types */
   .type-gradient {

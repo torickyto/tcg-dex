@@ -254,5 +254,13 @@
   }
 
   .monster-type.royal {
-    background-color: #f1b900;
+    background-color: #ffbd07;
+  }
+
+  .monster-type.parasite {
+    background-color: #e77272;
+  }
+
+  .monster-type.primal {
+    background-color: #d39f75;
   }

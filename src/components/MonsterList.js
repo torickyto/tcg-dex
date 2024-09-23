@@ -20,6 +20,8 @@ function MonsterList({ monsters, setSelectedMonster, selectedMonster }) {
         chrono: 'rgba(94, 218, 160, 0.3)',
         death: 'rgba(175, 154, 154, 0.4)',
         royal: 'rgba(241, 172, 23, 0.3)',
+        parasite: 'rgba(255, 18, 18, 0.2)',
+        primal: 'rgba(192, 136, 71, 0.2)',
       };
       return {
         '--color1': colorMap[types[0].toLowerCase()],
