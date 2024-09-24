@@ -96,21 +96,6 @@
     flex: 1;
   }
   
-  .monster-description-box {
-    font-size: clamp(16px, 1.3vw, 20px);
-    background-color: rgba(255, 255, 200, 0.2); 
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .monster-description-box p {
-    font-style: italic;
-    margin: 0;
-    color: rgba(0, 0, 0, 0.8); 
-  }
-  
   .monster-stats {
     display: grid;
     font-size: clamp(14px, 1.2vw, 18px);
@@ -188,13 +173,33 @@
   
   .evolution-chain {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .evolution-arrow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+  }
+  
+  .evolution-arrow {
+    margin-bottom: 5px;
+  }
+  
+  .evolution-condition {
+    font-size: 12px;
+    text-align: center;
+    max-width: 100px;
+    color: #666;
   }
   
   .evolution-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
     cursor: pointer;
   }
@@ -218,10 +223,6 @@
     font-size: 14px;
   }
   
-  .evolution-arrow {
-    margin: 0 10px;
-  }
-  
   .prev-form {
     margin-right: auto;
   }
@@ -231,8 +232,134 @@
   }
 
 
-
-
+  .monster-detail {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+  }
+  
+  .monster-content {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .monster-left-column {
+    flex: 0 0 auto;
+    width: 40%;
+    max-width: 400px;
+  }
+  
+  .monster-right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .monster-image-container {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .monster-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .monster-cards-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .monster-cards {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .monster-card {
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .monster-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .expanded-card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .expanded-card-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .expanded-card-image {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    border-radius: 20px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+  }
+  
+  .expanded-card-overlay.active .expanded-card-image {
+    transform: scale(1);
+  }
+  
+  @keyframes cardExpand {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .monster-card.expanded {
+    animation: cardExpand 0.3s ease;
+  }
+  
+  .monster-description-box {
+    background-color: rgba(255, 255, 200, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .monster-description-box p {
+    font-style: italic;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.8);
+  }
 
 
 
