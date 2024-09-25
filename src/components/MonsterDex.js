@@ -4,9 +4,10 @@ import MonsterDetail from './MonsterDetail';
 import SearchBar from './SearchBar';
 import ThemeToggle from './ThemeToggle';
 import TypeChart from './TypeChart';
+import CardPackOpener from './CardPackOpener';
 import monsterData from '../data/monsterData';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Package } from 'lucide-react';
 import './MonsterDex.css';
 
 function MonsterDex() {
@@ -15,6 +16,7 @@ function MonsterDex() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isTypeChartOpen, setIsTypeChartOpen] = useState(false);
+  const [isPackOpenerOpen, setIsPackOpenerOpen] = useState(false);
 
   useEffect(() => {
     setMonsters(monsterData);
@@ -26,6 +28,11 @@ function MonsterDex() {
   const filteredMonsters = monsters.filter(monster =>
     monster.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleCardOpened = (card) => {
+    console.log("Opened card:", card);
+    // TODO: Update the user's collection
+  };
 
   return (
     <div className={`monster-dex ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -59,12 +66,27 @@ function MonsterDex() {
           </AnimatePresence>
         </div>
       </div>
+
       <ThemeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      <button className="type-chart-button" onClick={() => setIsTypeChartOpen(true)}>
-        <BookOpen size={24} />
-        <span>Type Chart</span>
-      </button>
+      
+      <div className="action-buttons">
+        <button className="action-button" onClick={() => setIsTypeChartOpen(true)}>
+          <BookOpen size={24} />
+          <span>Type Chart</span>
+        </button>
+        <button className="action-button" onClick={() => setIsPackOpenerOpen(true)}>
+          <Package size={24} />
+          <span>Open Packs</span>
+        </button>
+      </div>
+
       <TypeChart isOpen={isTypeChartOpen} onClose={() => setIsTypeChartOpen(false)} />
+
+      <CardPackOpener
+        isOpen={isPackOpenerOpen}
+        onClose={() => setIsPackOpenerOpen(false)}
+        onCardOpened={handleCardOpened}
+      />
     </div>
   );
 }

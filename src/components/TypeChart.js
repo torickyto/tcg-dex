@@ -11,19 +11,21 @@ const typeColors = {
   royal: '#ffbd07',
   parasite: '#e77272',
   primal: '#d39f75',
-  nature: '#7cba6d'
+  nature: '#7cba6d',
+  magic: '#f259ff'
 };
 
 const typeEffectiveness = {
-  pulse: { strong: ['void', 'parasite'], weak: ['gravity'] },
-  void: { strong: ['gravity', 'nature'], weak: ['pulse'] },
-  gravity: { strong: ['pulse', 'primal'], weak: ['void'] },
+  pulse: { strong: ['void', 'parasite'], weak: ['gravity', 'magic'] },
+  void: { strong: ['gravity', 'nature'], weak: ['pulse', 'magic'] },
+  gravity: { strong: ['pulse', 'primal'], weak: ['void', 'magic'] },
   chrono: { strong: ['royal', 'primal'], weak: ['death', 'nature', 'parasite'] },
   death: { strong: ['chrono', 'parasite', 'primal'], weak: ['void', 'nature'] },
   royal: { strong: ['death'], weak: ['chrono', 'parasite', 'primal'] },
   parasite: { strong: ['nature', 'primal'], weak: ['pulse', 'death'] },
   primal: { strong: ['nature', 'royal'], weak: ['parasite'] },
-  nature: { strong: ['death', 'parasite'], weak: ['parasite', 'primal'] }
+  nature: { strong: ['death', 'parasite'], weak: ['parasite', 'primal', 'magic'] },
+  magic: { strong: ['nature', 'void', 'gravity', 'pulse'], weak: ['royal', 'primal', 'chrono'] }
 };
 
 function TypeChart({ isOpen, onClose }) {

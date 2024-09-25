@@ -42,8 +42,26 @@ const monsterData = [
         defense: 35,
         level: 3
       },
-      effect: "Once per turn, when Starlynx attacks, you may choose to have it attack twice. If you do, flip a coin after the second attack. If tails, Starlynx cannot attack during your next turn."    },
-    {
+      effect: "Once per turn, when Starlynx attacks, you may choose to have it attack twice. If you do, flip a coin after the second attack. If tails, Starlynx cannot attack during your next turn.",
+      cards: [
+        {
+          id: "starlynx_base",
+          name: "Starlynx",
+          image: "/images/cards/3_base.png",
+          rarity: "common",
+          packAppearance: ["starter"]
+        },
+        {
+          id: "starlynx_holo",
+          name: "Holographic Starlynx",
+          image: "/images/cards/3_holo.png",
+          rarity: "legendary",
+          packAppearance: ["starter"]
+        }
+      ]
+    },
+      
+      {
         id: 4,
         name: "Nihiliz",
         types: ["void"],
@@ -71,7 +89,8 @@ const monsterData = [
           level: 2
         },
         effect: "Once per turn, you can make Neantile invulnerable to attacks until your next turn. If you do, Neantile cannot attack during your next turn."      },
-      {
+      
+        {
         id: 6,
         name: "Guignoleon",
         types: ["void", "death"],
@@ -84,8 +103,25 @@ const monsterData = [
           defense: 50,
           level: 3
         },
-        effect: "When Guignoleon is summoned, you may swap the attack and defense of all monsters on the field until the end of your next turn. This effect can only be used once per game."      },
-      {
+        effect: "When Guignoleon is summoned, you may swap the attack and defense of all monsters on the field until the end of your next turn. This effect can only be used once per game."      ,
+        cards: [
+          {
+            id: "guignoleon_base",
+            name: "Guignoleon",
+            image: "/images/cards/6_base.png",
+            rarity: "common",
+            packAppearance: ["starter"]
+          },
+          {
+            id: "guignoleon holo",
+            name: "Holographic Guignoleon",
+            image: "/images/cards/6_holo.png",
+            rarity: "legendary",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+        {
         id: 7,
         name: "Nebulith",
         types: ["gravity"],
@@ -126,7 +162,24 @@ const monsterData = [
           defense: 60,
           level: 3
         },
-        effect: "Once per game, when Cosmajesty would be destroyed, you can instead remove it from play until the start of your next turn. When it returns, draw 2 cards."      },
+        effect: "Once per game, when Cosmajesty would be destroyed, you can instead remove it from play until the start of your next turn. When it returns, draw 2 cards."      ,
+        cards: [
+          {
+            id: "cosmajesty_base",
+            name: "Cosmajesty",
+            image: "/images/cards/9_base.png",
+            rarity: "common",
+            packAppearance: ["starter"]
+          },
+          {
+            id: "cosmajesty holo",
+            name: "Holographic Cosmajesty",
+            image: "/images/cards/9_holo.png",
+            rarity: "legendary",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
         {
           id: 10,
           name: "Miteor",
@@ -140,7 +193,8 @@ const monsterData = [
             defense: 30,
             level: 1
           },
-          effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats."
+          effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats.",
+          evolutionCondition: "50 DEF"
         },
         {
           id: 11,
@@ -190,7 +244,7 @@ const monsterData = [
         {
             id: 66,
             name: "Mortibane",
-            types: ["death"],
+            types: ["death", "magic"],
             image: "/images/monster/mortibane.png",
             description: "Mortibane is both feared and revered in certain cultures. Some view its appearance as a sacred omen, signaling the end of one cycle and the beginning of another. Folklore suggests that those who accept their fate in Mortibane's presence may gain profound wisdom about the nature of existence. However, those who resist are said to vanish without a trace, their very essence erased from reality.",
             prevForm: null,

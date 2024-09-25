@@ -1,0 +1,235 @@
+.card-pack-opener {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.card-pack-content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.pack-selection-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.pack-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.pack-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pack-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pack-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.pack-card-count {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.cards-spread {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.card-container {
+  perspective: 1000px;
+  width: 200px;
+  height: 280px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card-pack-opener {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.card-pack-content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* ... (other styles remain the same) ... */
+
+.card-container {
+  perspective: 1000px;
+  width: 200px;
+  height: 280px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card.revealed {
+  transform: rotateY(180deg);
+}
+
+.card.flipping {
+  pointer-events: none;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-back {
+  background-color: #1e90ff;
+}
+
+.card-front {
+  transform: rotateY(180deg);
+  background-color: white;
+}
+
+.card-back img,
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 45%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.2) 55%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+.card-shine.holographic {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 0, 0.2) 0%,
+    rgba(255, 165, 0, 0.2) 25%,
+    rgba(255, 255, 0, 0.2) 50%,
+    rgba(0, 255, 0, 0.2) 75%,
+    rgba(0, 0, 255, 0.2) 100%
+  );
+  background-size: 400% 400%;
+  animation: rainbow 5s linear infinite;
+  mix-blend-mode: color-dodge;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+.card-container:hover .card-shine {
+  opacity: 1;
+}
+
+.card-container:hover .card-shine {
+  opacity: 1;
+}
+
+.close-pack-button {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.close-pack-button:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 1200px) {
+  .card-container {
+    width: 180px;
+    height: 252px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    width: 140px;
+    height: 196px;
+  }
+  
+  .cards-spread {
+    gap: 0.5rem;
+  }
+}

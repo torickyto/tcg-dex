@@ -394,3 +394,7 @@
   .monster-type.primal {
     background-color: #d39f75;
   }
+
+  .monster-type.magic {
+    background-color: #f393fc;
+  }

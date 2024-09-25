@@ -32,6 +32,37 @@
     height: 100%;
   }
   
+  .action-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--accent);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .action-button span {
+    font-weight: bold;
+  }
+
   .light-mode {
     --bg: #f0f2f5;
     --bg-rgb: 240, 242, 245;
@@ -42,6 +73,8 @@
     --card-bg: #ffffff;
     --card-border: #e1e4e8;
   }
+
+
   
   .dark-mode {
     --bg: #1a1a2e;
