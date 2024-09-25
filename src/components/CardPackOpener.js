@@ -5,7 +5,7 @@ import monsterData from '../data/monsterData';
 import './CardPackOpener.css';
 
 const packTypes = {
-  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.5, uncommon: 0.3, legendary: 0.2 }, color: '#4CAF50' },
+  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.50, uncommon: 0.2, rare: 0.15, epic: 0.1, legendary: 0.05 }, color: '#4CAF50' },
 };
 
 const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
@@ -89,19 +89,19 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      const rotateY = ((centerX - x) / centerX) * 20;
-      const rotateX = ((y - centerY) / centerY) * 20;
+      const rotateY = ((centerX - x) / centerX) * 50;
+      const rotateX = ((y - centerY) / centerY) * 50;
       
       card.style.transform = `perspective(1000px) rotateY(${180 + rotateY}deg) rotateX(${rotateX}deg)`;
       
-      const shine = card.querySelector('.card-shine');
+      const shine = card.querySelector('.card-front .card-shine');
       if (shine) {
-        const moveX = ((x - centerX) / centerX) * 50;
-        const moveY = ((y - centerY) / centerY) * 50;
+        const moveX = ((x - centerX) / centerX) * 40;
+        const moveY = ((y - centerY) / centerY) * 40;
         shine.style.backgroundPosition = `${50 + moveX}% ${50 + moveY}%`;
         
-        if (cards[index].rarity === 'legendary') {
-          const hue = (moveX + moveY) * .01;
+        if (cards[index].rarity === 'legendary' || cards[index].rarity === 'epic') {
+          const hue = (moveX + moveY) * 0.04;
           shine.style.filter = `hue-rotate(${hue}deg)`;
         }
       }
@@ -112,10 +112,10 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
     if (cardRefs.current[index] && revealedCards[index] && !isFlipping[index]) {
       const card = cardRefs.current[index];
       card.style.transform = 'perspective(1000px) rotateY(180deg)';
-      const shine = card.querySelector('.card-shine');
+      const shine = card.querySelector('.card-front .card-shine');
       if (shine) {
         shine.style.backgroundPosition = '50% 50%';
-        if (cards[index].rarity === 'legendary') {
+        if (cards[index].rarity === 'legendary' || cards[index].rarity === 'epic') {
           shine.style.filter = 'none';
         }
       }
@@ -171,6 +171,9 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                     >
+                      <div className={`rarity-label rarity-${card.rarity.toLowerCase()}`}>
+                        {card.rarity}
+                      </div>
                       <div
                         ref={el => cardRefs.current[index] = el}
                         className={`card ${revealedCards[index] ? 'revealed' : ''}`}
@@ -180,8 +183,8 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
                         </div>
                         <div className="card-face card-front">
                           <img src={card.image} alt={card.name} />
+                          <div className={`card-shine ${(card.rarity === 'legendary' || card.rarity === 'epic') ? 'holographic' : ''} ${card.rarity.toLowerCase()}`}></div>
                         </div>
-                        <div className={`card-shine ${card.rarity === 'legendary' ? 'holographic' : ''}`}></div>
                       </div>
                     </motion.div>
                   ))}

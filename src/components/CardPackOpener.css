@@ -12,16 +12,19 @@
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  padding: 5rem;
+  padding: 2rem;
   width: 95%;
   max-width: 1600px;
+  max-height: 90vh;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .pack-selection-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: bold;
   text-align: center;
   margin-bottom: 2rem;
@@ -69,15 +72,69 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .card-container {
   perspective: 1000px;
-  width: 280px;
-  height: 392px;
+  width: clamp(160px, 20vw, 280px);
+  height: clamp(224px, 28vw, 392px);
   cursor: pointer;
   transition: transform 0.3s ease;
+  position: relative;
+}
+
+
+.rarity-label {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+.card-container.revealed .rarity-label {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.rarity-common {
+  background-color: #b0b0b0;
+  color: #333;
+  box-shadow: 0 0 10px rgba(176, 176, 176, 0.7);
+}
+
+.rarity-uncommon {
+  background-color: #55a555;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(85, 165, 85, 0.7);
+}
+
+.rarity-rare {
+  background-color: #51a2ff;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(85, 85, 255, 0.7);
+}
+
+.rarity-epic {
+  background: linear-gradient(45deg, #8a2be2, #4b0082);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+  text-shadow: 0 0 5px rgba(75, 0, 130, 0.7);
+}
+
+.rarity-legendary {
+  background: linear-gradient(45deg, #ffd700, #ff8c00);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+  text-shadow: 0 0 5px rgba(255, 140, 0, 0.7);
 }
 
 .card {
@@ -139,35 +196,43 @@
     rgba(255, 255, 255, 0.2) 70%,
     rgba(255, 255, 255, 0) 100%
   );
-  opacity: 0.5;
+  opacity: 0;
   transition: opacity 0.3s, transform 0.5s ease-out;
   pointer-events: none;
   mix-blend-mode: soft-light;
+}
+
+.card-front .card-shine {
+  opacity: 0.5;
 }
 
 .card-shine.holographic {
   background: linear-gradient(
     135deg,
     rgba(255, 0, 0, 0.5) 0%,
-    rgba(255, 255, 0, 0.5) 20.33%,
-    rgba(0, 255, 0, 0.5) 40%,
+    rgba(255, 255, 0, 0.2) 14.33%,
+    rgba(0, 255, 0, 0.2) 30%,
     rgba(0, 0, 255, 0.5) 60.67%,
     rgba(238, 130, 238, 0.5) 80.33%,
     rgba(255, 0, 0, 0.5) 100%
   );
-  background-size: 15320% 15320%;
+  background-size: 420% 420%;
   mix-blend-mode: color-dodge;
-  opacity: 0.3;
+  opacity: 0;
   transition: opacity 0.3s;
 }
 
-.card-container:hover .card-shine {
+.card-front .card-shine.holographic {
+  opacity: 0.7;
+}
+
+.card-container:hover .card-front .card-shine {
   opacity: 1;
 }
 
 .close-pack-button {
   position: absolute;
-  bottom: 1rem;
+  bottom: .5rem;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(255, 255, 255, 0.2);

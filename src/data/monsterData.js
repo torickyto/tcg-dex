@@ -74,7 +74,7 @@ const monsterData = [
           id: "starlynx_holo",
           name: "Holographic Starlynx",
           image: "/images/cards/3_holo.png",
-          rarity: "legendary",
+          rarity: "epic",
           packAppearance: ["starter"]
         }
       ]
@@ -154,7 +154,7 @@ const monsterData = [
             id: "guignoleon holo",
             name: "Holographic Guignoleon",
             image: "/images/cards/6_holo.png",
-            rarity: "legendary",
+            rarity: "epic",
             packAppearance: ["starter"]
           }
         ]
@@ -233,7 +233,7 @@ const monsterData = [
             id: "cosmajesty holo",
             name: "Holographic Cosmajesty",
             image: "/images/cards/9_holo.png",
-            rarity: "legendary",
+            rarity: "epic",
             packAppearance: ["starter"]
           }
         ]
@@ -284,6 +284,13 @@ const monsterData = [
             name: "Titanitick",
             image: "/images/cards/11_base.png",
             rarity: "uncommon",
+            packAppearance: ["starter"]
+          },
+          {
+            id: "titanitick holo",
+            name: "Holographic Titanitick",
+            image: "/images/cards/11_holo.png",
+            rarity: "epic",
             packAppearance: ["starter"]
           }
         ]
@@ -350,7 +357,24 @@ const monsterData = [
               defense: 45,
               level: 5
             },
-            effect: "Once per summon when Mortibane attacks, banish the target from the game and graveyard."      },
+            effect: "Once per summon when Mortibane attacks, banish the target from the game and graveyard."      ,
+            cards: [
+              {
+                id: "mortibane_base",
+                name: "Mortibane",
+                image: "/images/cards/66_base.png",
+                rarity: "rare",
+                packAppearance: ["starter"]
+              },
+              {
+                id: "mortibane_holo",
+                name: "Holographic Mortibane",
+                image: "/images/cards/66_holo.png",
+                rarity: "legendary",
+                packAppearance: ["starter"]
+              }
+            ]
+          },
             {
               id: 70,
               name: "Usurpent",
@@ -365,7 +389,25 @@ const monsterData = [
                 level: 5
               },
               effect: "Whenever the player is attacked, Usurpent loses 10 attack. Once per game, you can banish Usurpent to end the current phase immediately and skip to your next turn."
-            }
+            ,
+            cards: [
+              {
+                id: "usurpent_base",
+                name: "Usurpent",
+                image: "/images/cards/70_base.png",
+                rarity: "rare",
+                packAppearance: ["starter"]
+              },
+              {
+                id: "usurpent_holo",
+                name: "Holographic Usurpent",
+                image: "/images/cards/70_holo.png",
+                rarity: "legendary",
+                packAppearance: ["starter"]
+              }
+            ]
+          },
+
   ];
   
   export default monsterData;
