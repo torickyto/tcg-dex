@@ -5,10 +5,7 @@ import monsterData from '../data/monsterData';
 import './CardPackOpener.css';
 
 const packTypes = {
-  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.7, legendary: 0.3}, color: '#4CAF50' },
-  pulse: { name: "Pulse Pack", cardCount: 5, rarityDistribution: { common: 0.6, uncommon: 0.3, rare: 0.09, legendary: 0.01 }, color: '#2196F3' },
-  royal: { name: "Royal Pack", cardCount: 5, rarityDistribution: { uncommon: 0.5, rare: 0.4, legendary: 0.1 }, color: '#FFC107' },
-  legendary: { name: "Legendary Pack", cardCount: 3, rarityDistribution: { rare: 0.7, legendary: 0.3 }, color: '#9C27B0' }
+  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.5, uncommon: 0.3, legendary: 0.2 }, color: '#4CAF50' },
 };
 
 const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
@@ -79,7 +76,7 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
         const updatedIsFlipping = [...newIsFlipping];
         updatedIsFlipping[index] = false;
         setIsFlipping(updatedIsFlipping);
-      }, 600); // Match this with your CSS transition time
+      }, 600);
     }
   };
 
@@ -91,16 +88,22 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
       const y = event.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * 15;
-      const rotateY = ((centerX - x) / centerX) * 15;
       
-      card.style.transform = `perspective(1000px) rotateY(180deg) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      const rotateY = ((centerX - x) / centerX) * 20;
+      const rotateX = ((y - centerY) / centerY) * 20;
+      
+      card.style.transform = `perspective(1000px) rotateY(${180 + rotateY}deg) rotateX(${rotateX}deg)`;
       
       const shine = card.querySelector('.card-shine');
       if (shine) {
-        const moveX = ((x - centerX) / centerX) * 150;
-        const moveY = ((y - centerY) / centerY) * 150;
-        shine.style.backgroundPosition = `${moveX}% ${moveY}%`;
+        const moveX = ((x - centerX) / centerX) * 50;
+        const moveY = ((y - centerY) / centerY) * 50;
+        shine.style.backgroundPosition = `${50 + moveX}% ${50 + moveY}%`;
+        
+        if (cards[index].rarity === 'legendary') {
+          const hue = (moveX + moveY) * .01;
+          shine.style.filter = `hue-rotate(${hue}deg)`;
+        }
       }
     }
   };
@@ -112,11 +115,12 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
       const shine = card.querySelector('.card-shine');
       if (shine) {
         shine.style.backgroundPosition = '50% 50%';
+        if (cards[index].rarity === 'legendary') {
+          shine.style.filter = 'none';
+        }
       }
     }
   };
-
-  const allCardsRevealed = revealedCards.every(card => card);
 
   return (
     <AnimatePresence>
@@ -128,9 +132,9 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
           className="card-pack-opener"
         >
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
+            exit={{ scale: 0.9, opacity: 0 }}
             className="card-pack-content"
           >
             {isSelectingPack ? (
@@ -169,20 +173,20 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
                     >
                       <div
                         ref={el => cardRefs.current[index] = el}
-                        className={`card ${revealedCards[index] ? 'revealed' : ''} ${isFlipping[index] ? 'flipping' : ''}`}
+                        className={`card ${revealedCards[index] ? 'revealed' : ''}`}
                       >
                         <div className="card-face card-back">
                           <img src="/images/cards/cardback1.png" alt="Card Back" />
                         </div>
                         <div className="card-face card-front">
                           <img src={card.image} alt={card.name} />
-                          <div className={`card-shine ${card.rarity === 'legendary' ? 'holographic' : ''}`}></div>
                         </div>
+                        <div className={`card-shine ${card.rarity === 'legendary' ? 'holographic' : ''}`}></div>
                       </div>
                     </motion.div>
                   ))}
                 </div>
-                {allCardsRevealed && (
+                {cards.every((_, index) => revealedCards[index]) && (
                   <button className="close-pack-button" onClick={onClose}>Close Pack</button>
                 )}
               </>

@@ -1,7 +1,7 @@
 .card-pack-opener {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,21 +9,24 @@
 }
 
 .card-pack-content {
-  background-color: white;
-  border-radius: 16px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 1200px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 5rem;
+  width: 95%;
+  max-width: 1600px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
+  overflow: hidden;
 }
 
 .pack-selection-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 2rem;
-  color: #333;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .pack-selection-grid {
@@ -48,7 +51,7 @@
 
 .pack-button:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .pack-name {
@@ -65,44 +68,14 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
   margin-top: 3rem;
 }
 
 .card-container {
   perspective: 1000px;
-  width: 200px;
-  height: 280px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.card-pack-opener {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.card-pack-content {
-  background-color: white;
-  border-radius: 16px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 1200px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-
-/* ... (other styles remain the same) ... */
-
-.card-container {
-  perspective: 1000px;
-  width: 200px;
-  height: 280px;
+  width: 280px;
+  height: 392px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -110,6 +83,7 @@
 .card {
   width: 100%;
   height: 100%;
+  border-radius: 10px;
   position: relative;
   transition: transform 0.6s;
   transform-style: preserve-3d;
@@ -129,7 +103,6 @@
   height: 100%;
   backface-visibility: hidden;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -150,22 +123,24 @@
 }
 
 .card-shine {
+  border-radius: 10px;
   position: absolute;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 45%,
-    rgba(255, 255, 255, 0.4) 50%,
-    rgba(255, 255, 255, 0.2) 55%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.5) 47%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.5) 53%,
+    rgba(255, 255, 255, 0.2) 70%,
     rgba(255, 255, 255, 0) 100%
   );
-  background-size: 200% 200%;
-  opacity: 0;
-  transition: opacity 0.3s;
+  opacity: 0.5;
+  transition: opacity 0.3s, transform 0.5s ease-out;
   pointer-events: none;
   mix-blend-mode: soft-light;
 }
@@ -173,24 +148,17 @@
 .card-shine.holographic {
   background: linear-gradient(
     135deg,
-    rgba(255, 0, 0, 0.2) 0%,
-    rgba(255, 165, 0, 0.2) 25%,
-    rgba(255, 255, 0, 0.2) 50%,
-    rgba(0, 255, 0, 0.2) 75%,
-    rgba(0, 0, 255, 0.2) 100%
+    rgba(255, 0, 0, 0.5) 0%,
+    rgba(255, 255, 0, 0.5) 20.33%,
+    rgba(0, 255, 0, 0.5) 40%,
+    rgba(0, 0, 255, 0.5) 60.67%,
+    rgba(238, 130, 238, 0.5) 80.33%,
+    rgba(255, 0, 0, 0.5) 100%
   );
-  background-size: 400% 400%;
-  animation: rainbow 5s linear infinite;
+  background-size: 15320% 15320%;
   mix-blend-mode: color-dodge;
-}
-
-@keyframes rainbow {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
-}
-
-.card-container:hover .card-shine {
-  opacity: 1;
+  opacity: 0.3;
+  transition: opacity 0.3s;
 }
 
 .card-container:hover .card-shine {
@@ -202,34 +170,36 @@
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #4CAF50;
-  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
+  font-size: 1.2rem;
+  transition: background-color 0.3s, transform 0.3s;
 }
-
-.close-pack-button:hover {
-  background-color: #45a049;
+@media (max-width: 1600px) {
+  .card-container {
+    width: 240px;
+    height: 336px;
+  }
 }
 
 @media (max-width: 1200px) {
   .card-container {
-    width: 180px;
-    height: 252px;
+    width: 200px;
+    height: 280px;
   }
 }
 
 @media (max-width: 768px) {
   .card-container {
-    width: 140px;
-    height: 196px;
+    width: 160px;
+    height: 224px;
   }
   
   .cards-spread {
-    gap: 0.5rem;
+    gap: 1rem;
   }
 }

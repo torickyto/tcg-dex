@@ -13,7 +13,17 @@ const monsterData = [
           level: 1
         },
         effect: "When Plasmew is summoned, you may draw 1 card. Once per turn, you can discard 1 card to increase Plasmew's attack by 10 until the end of your turn."
-      },
+      ,
+      cards: [
+        {
+          id: "plasmew_base",
+          name: "Plasmew",
+          image: "/images/cards/1_base.png",
+          rarity: "common",
+          packAppearance: ["starter"]
+        }
+      ]
+    },
     {
       id: 2,
       name: "Felazor",
@@ -27,7 +37,16 @@ const monsterData = [
         defense: 25,
         level: 2
       },
-      effect: "When Felazor attacks, flip a coin. If heads, this attack deals 10 additional damage. If tails, your opponent discards 1 card from their hand."
+      effect: "When Felazor attacks, flip a coin. If heads, this attack deals 10 additional damage. If tails, your opponent discards 1 card from their hand.",
+      cards: [
+        {
+          id: "felazor_base",
+          name: "Felazor",
+          image: "/images/cards/2_base.png",
+          rarity: "common",
+          packAppearance: ["starter"]
+        }
+      ]
     },
     {
       id: 3,
@@ -48,7 +67,7 @@ const monsterData = [
           id: "starlynx_base",
           name: "Starlynx",
           image: "/images/cards/3_base.png",
-          rarity: "common",
+          rarity: "uncommon",
           packAppearance: ["starter"]
         },
         {
@@ -74,8 +93,18 @@ const monsterData = [
           defense: 25,
           level: 1
         },
-        effect: "When Nihiliz is summoned, your opponent's active monster loses 10 attack until the end of their next turn. This effect can only be used once per game."      },
-      {
+        effect: "When Nihiliz is summoned, your opponent's active monster loses 10 attack until the end of their next turn. This effect can only be used once per game."      ,
+        cards: [
+          {
+            id: "nihiliz_base",
+            name: "Nihiliz",
+            image: "/images/cards/4_base.png",
+            rarity: "common",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+        {
         id: 5,
         name: "Neantile",
         types: ["void"],
@@ -88,8 +117,17 @@ const monsterData = [
           defense: 35,
           level: 2
         },
-        effect: "Once per turn, you can make Neantile invulnerable to attacks until your next turn. If you do, Neantile cannot attack during your next turn."      },
-      
+        effect: "Once per turn, you can make Neantile invulnerable to attacks until your next turn. If you do, Neantile cannot attack during your next turn."      ,
+        cards: [
+          {
+            id: "neantile_base",
+            name: "Neantile",
+            image: "/images/cards/5_base.png",
+            rarity: "common",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
         {
         id: 6,
         name: "Guignoleon",
@@ -109,7 +147,7 @@ const monsterData = [
             id: "guignoleon_base",
             name: "Guignoleon",
             image: "/images/cards/6_base.png",
-            rarity: "common",
+            rarity: "uncommon",
             packAppearance: ["starter"]
           },
           {
@@ -134,8 +172,18 @@ const monsterData = [
           defense: 30,
           level: 1
         },
-        effect: "When Nebulith is attacked, flip a coin. If heads, reduce the incoming damage by 10."      },
-      {
+        effect: "When Nebulith is attacked, flip a coin. If heads, reduce the incoming damage by 10."      ,
+        cards: [
+          {
+            id: "nebulith_base",
+            name: "Nebulith",
+            image: "/images/cards/7_base.png",
+            rarity: "common",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+        {
         id: 8,
         name: "Orbitot",
         types: ["gravity"],
@@ -148,8 +196,18 @@ const monsterData = [
           defense: 40,
           level: 2
         },
-        effect: "Once per turn, you may choose one of your opponent's monsters. That monster cannot attack Orbitot until the end of your next turn. If you use this effect, Orbitot's attack is reduced by 10 until the end of your next turn."      },
-      {
+        effect: "Once per turn, you may choose one of your opponent's monsters. That monster cannot attack Orbitot until the end of your next turn. If you use this effect, Orbitot's attack is reduced by 10 until the end of your next turn."      ,
+        cards: [
+          {
+            id: "orbitot_base",
+            name: "Orbitot",
+            image: "/images/cards/8_base.png",
+            rarity: "common",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+        {
         id: 9,
         name: "Cosmajesty",
         types: ["gravity", "royal"],
@@ -168,7 +226,7 @@ const monsterData = [
             id: "cosmajesty_base",
             name: "Cosmajesty",
             image: "/images/cards/9_base.png",
-            rarity: "common",
+            rarity: "uncommon",
             packAppearance: ["starter"]
           },
           {
@@ -194,7 +252,16 @@ const monsterData = [
             level: 1
           },
           effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats.",
-          evolutionCondition: "50 DEF"
+          evolutionCondition: "50 DEF",
+          cards: [
+            {
+              id: "miteor_base",
+              name: "Miteor",
+              image: "/images/cards/10_base.png",
+              rarity: "common",
+              packAppearance: ["starter"]
+            }
+          ]
         },
         {
           id: 11,
@@ -210,7 +277,17 @@ const monsterData = [
             level: 3
           },
           effect: "When Titanitick is summoned, you may remove all other monsters on the field from play until the end of your next turn. For each monster removed this way, draw one card."
-        },
+        ,
+        cards: [
+          {
+            id: "titanitick_base",
+            name: "Titanitick",
+            image: "/images/cards/11_base.png",
+            rarity: "uncommon",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
         {
           id: 37,
           name: "Simerant",
@@ -224,8 +301,18 @@ const monsterData = [
             defense: 35,
             level: 1
           },
-          effect: "When Simerant enters play, it automatically challenges the opponent's strongest monster to a duel. Flip a coin: if heads, Bratapeti's attack doubles for this turn; if tails, it trips and loses its next turn."
+          effect: "When Simerant enters play, it automatically challenges the opponent's strongest monster to a duel. Flip a coin: if heads, Bratapeti's attack doubles for this turn; if tails, it trips and loses its next turn.",        
+          cards: [
+            {
+              id: "simerant_base",
+              name: "Simerant",
+              image: "/images/cards/37_base.png",
+              rarity: "common",
+              packAppearance: ["starter"]
+            }
+          ]
         },
+        
         {
           id: 38,
           name: "Bonapeti",
@@ -239,7 +326,16 @@ const monsterData = [
             defense: 55,
             level: 3
           },
-          effect: "When Bonapeti enters play, your opponent must discard half their hand (rounded down). Bonapeti cannot act until the next turn."
+          effect: "When Bonapeti enters play, your opponent must discard half their hand (rounded down). Bonapeti cannot act until the next turn.",
+          cards: [
+            {
+              id: "bonapeti_base",
+              name: "Bonapeti",
+              image: "/images/cards/38_base.png",
+              rarity: "uncommon",
+              packAppearance: ["starter"]
+            }
+          ]
         },
         {
             id: 66,
