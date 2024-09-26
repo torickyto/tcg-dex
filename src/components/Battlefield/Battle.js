@@ -1,31 +1,79 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import monsterData from '../../data/monsterData';
 import CardInfoTooltip from './CardInfoTooltip';
 import './Battle.css';
 
 const Battle = ({ onClose }) => {
-  const [playerHand, setPlayerHand] = useState([
-    { id: 'card-1', name: 'Plasmew', image: '/images/cards/1_base.png', stats: { attack: 30, defense: 20 }, effect: "When Plasmew is summoned, you may draw 1 card. Once per turn, you can discard 1 card to increase Plasmew's attack by 10 until the end of your turn." },
-    { id: 'card-2', name: 'Felazor', image: '/images/cards/2_base.png', stats: { attack: 45, defense: 25 }, effect: "When Felazor attacks, flip a coin. If heads, this attack deals 10 additional damage. If tails, your opponent discards 1 card from their hand." },
-    { id: 'card-3', name: 'Starlynx', image: '/images/cards/3_holo.png', stats: { attack: 65, defense: 35 }, effect: "Once per turn, when Starlynx attacks, you may choose to have it attack twice. If you do, flip a coin after the second attack. If tails, Starlynx cannot attack during your next turn." },
-    { id: 'card-4', name: 'Nihiliz', image: '/images/cards/4_base.png', stats: { attack: 25, defense: 25 }, effect: "When Nihiliz is summoned, your opponent's active monster loses 10 attack until the end of their next turn. This effect can only be used once per game." },
-    { id: 'card-5', name: 'Neantile', image: '/images/cards/5_base.png', stats: { attack: 35, defense: 35 }, effect: "Once per turn, you can make Neantile invulnerable to attacks until your next turn. If you do, Neantile cannot attack during your next turn." },
-    { id: 'card-6', name: 'Guignoleon', image: '/images/cards/6_base.png', stats: { attack: 50, defense: 50 }, effect: "When Guignoleon is summoned, you may swap the attack and defense of all monsters on the field until the end of your next turn. This effect can only be used once per game." },
-    { id: 'card-7', name: 'Nebulith', image: '/images/cards/7_base.png', stats: { attack: 20, defense: 30 }, effect: "When Nebulith is attacked, flip a coin. If heads, reduce the incoming damage by 10." },
-  ]);
+  const getCardData = (cardId) => {
+    for (const monster of monsterData) {
+      const card = monster.cards.find(c => c.id === cardId);
+      if (card) {
+        return {
+          id: card.id,
+          name: monster.name,
+          image: card.image,
+          stats: monster.stats,
+          effect: monster.effect
+        };
+      }
+    }
+    console.warn(`Card with id ${cardId} not found in monsterData`);
+    return null;
+  };
 
+  const initialPlayerHandIds = ['mortibane_holo', 'usurpent_reverse_holo', 'starlynx_holo', 'nihiliz_base', 'neantile_base', 'guignoleon_base', 'mortibane_reverse_holo'];
+  const initialPlayerHand = initialPlayerHandIds.map(getCardData).filter(Boolean);
+
+  const [playerHand, setPlayerHand] = useState(initialPlayerHand);
   const [playerField, setPlayerField] = useState([]);
+  
   const [opponentField] = useState([
-    { id: 'card-13', name: 'Miteor', image: '/images/cards/13_base.png', stats: { attack: 15, defense: 30 }, effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats." },
-    { id: 'card-66', name: 'Miteor', image: '/images/cards/66_holo.png', stats: { attack: 15, defense: 30 }, effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats." },
-  ]);
+    getCardData('miteor_base'),
+    getCardData('mortibane_base')
+  ].filter(Boolean));
 
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [summoningCard, setSummoningCard] = useState(null);
-  const summoningRef = useRef(null);
+  const [summoningPosition, setSummoningPosition] = useState({ x: 0, y: 0 });
+  const [isSummoning, setIsSummoning] = useState(false);
+  const [isDrawingInitialHand, setIsDrawingInitialHand] = useState(true);
+  const [drawnCards, setDrawnCards] = useState([]);
+
+  const fieldRef = useRef(null);
+  const deckRef = useRef(null);
+  const handRef = useRef(null);
+
+  useEffect(() => {
+    if (isDrawingInitialHand) {
+      drawInitialHand();
+    }
+  }, [isDrawingInitialHand]);
+
+  const drawInitialHand = () => {
+    const drawNextCard = (index) => {
+      if (index >= initialPlayerHand.length) {
+        setIsDrawingInitialHand(false);
+        setPlayerHand(initialPlayerHand);
+        return;
+      }
+
+      const card = initialPlayerHand[index];
+      setDrawnCards(prev => [...prev, card]);
+
+      setTimeout(() => drawNextCard(index + 1), 200);
+    };
+
+    drawNextCard(0);
+  };
+
+  const isHolographic = (cardImage) => {
+    return cardImage.includes('holo') || cardImage.includes('reverse');
+  };
+
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -34,23 +82,24 @@ const Battle = ({ onClose }) => {
       return;
     }
 
-    const reorder = (list, startIndex, endIndex) => {
-      const result = Array.from(list);
-      const [removed] = result.splice(startIndex, 1);
-      result.splice(endIndex, 0, removed);
-      return result;
-    };
-
     if (source.droppableId === 'player-hand' && destination.droppableId === 'player-field') {
       if (playerField.length < 3) {
         const newPlayerHand = Array.from(playerHand);
         const [movedCard] = newPlayerHand.splice(source.index, 1);
-        setSummoningCard(movedCard);
         setPlayerHand(newPlayerHand);
+        
+        const fieldRect = fieldRef.current.getBoundingClientRect();
+        const dropX = destination.index * (fieldRect.width / 3) + (fieldRect.width / 6);
+        const dropY = fieldRect.top + (fieldRect.height / 2);
+        
+        setSummoningPosition({ x: dropX, y: dropY });
+        setSummoningCard(movedCard);
+        setIsSummoning(true);
         
         setTimeout(() => {
           setPlayerField((prevField) => {
-            const newField = [...prevField, movedCard];
+            const newField = [...prevField];
+            newField.splice(destination.index, 0, movedCard);
             setTimeout(() => {
               const cardElement = document.querySelector(`[data-card-id="${movedCard.id}"]`);
               if (cardElement) {
@@ -61,7 +110,8 @@ const Battle = ({ onClose }) => {
             return newField;
           });
           setSummoningCard(null);
-        }, 1500); 
+          setIsSummoning(false);
+        }, 1500);
       }
     } else if (source.droppableId === 'player-field' && destination.droppableId === 'player-hand') {
       const newPlayerField = Array.from(playerField);
@@ -74,19 +124,23 @@ const Battle = ({ onClose }) => {
   };
 
   const handleMouseEnter = useCallback((card, event) => {
-    setHoveredCard(card);
-    setMousePosition({ x: event.clientX, y: event.clientY });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setHoveredCard(null);
-  }, []);
-
-  const handleMouseMove = useCallback((event) => {
-    if (hoveredCard) {
+    if (!isSummoning) {
+      setHoveredCard(card);
       setMousePosition({ x: event.clientX, y: event.clientY });
     }
-  }, [hoveredCard]);
+  }, [isSummoning]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!isSummoning) {
+      setHoveredCard(null);
+    }
+  }, [isSummoning]);
+
+  const handleMouseMove = useCallback((event) => {
+    if (hoveredCard && !isSummoning) {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    }
+  }, [hoveredCard, isSummoning]);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -115,7 +169,10 @@ const Battle = ({ onClose }) => {
               {(provided, snapshot) => (
                 <div
                   {...provided.droppableProps}
-                  ref={provided.innerRef}
+                  ref={(el) => {
+                    provided.innerRef(el);
+                    fieldRef.current = el;
+                  }}
                   className={`battle-field ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
                 >
                   <h3>Your Field</h3>
@@ -126,17 +183,20 @@ const Battle = ({ onClose }) => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          className={`battle-card ${snapshot.isDragging ? 'is-dragging' : ''}`}
+                          className={`battle-card ${snapshot.isDragging ? 'is-dragging' : ''} ${isHolographic(card.image) ? 'holographic' : ''}`}
+                          data-card-id={card.id}
                           style={{
                             ...provided.draggableProps.style,
                             transition: snapshot.isDropAnimating
                               ? 'all 0.3s cubic-bezier(.2,1,.1,1)'
                               : provided.draggableProps.style.transition,
+                            pointerEvents: isSummoning ? 'none' : 'auto',
                           }}
                           onMouseEnter={(e) => handleMouseEnter(card, e)}
                           onMouseLeave={handleMouseLeave}
                         >
                           <img src={card.image} alt={card.name} />
+                          {isHolographic(card.image) && <div className="card-shine"></div>}
                         </div>
                       )}
                     </Draggable>
@@ -146,6 +206,7 @@ const Battle = ({ onClose }) => {
               )}
             </Droppable>
           </div>
+
           <Droppable droppableId="player-hand" direction="horizontal">
             {(provided, snapshot) => (
               <div
@@ -161,17 +222,19 @@ const Battle = ({ onClose }) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className={`battle-card ${snapshot.isDragging ? 'is-dragging' : ''}`}
+                        className={`battle-card ${snapshot.isDragging ? 'is-dragging' : ''} ${isHolographic(card.image) ? 'holographic' : ''}`}
                         style={{
                           ...provided.draggableProps.style,
                           transition: snapshot.isDropAnimating
                             ? 'all 0.3s cubic-bezier(.2,1,.1,1)'
                             : provided.draggableProps.style.transition,
+                          pointerEvents: isSummoning ? 'none' : 'auto',
                         }}
                         onMouseEnter={(e) => handleMouseEnter(card, e)}
                         onMouseLeave={handleMouseLeave}
                       >
                         <img src={card.image} alt={card.name} />
+                        {isHolographic(card.image) && <div className="card-shine"></div>}
                       </div>
                     )}
                   </Draggable>
@@ -182,7 +245,7 @@ const Battle = ({ onClose }) => {
           </Droppable>
         </div>
         <AnimatePresence>
-          {hoveredCard && (
+          {hoveredCard && !isSummoning && (
             <CardInfoTooltip card={hoveredCard} position={mousePosition} />
           )}
           {summoningCard && (
@@ -192,24 +255,43 @@ const Battle = ({ onClose }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
+              style={{
+                position: 'fixed',
+                left: summoningPosition.x,
+                top: summoningPosition.y,
+                transform: 'translate(-50%, -50%)',
+              }}
             >
               <motion.div
-                className={`summoning-card ${summoningCard.image.includes('holo') ? 'holographic' : ''}`}
-                initial={{ scale: 0.5, y: 300, rotateY: 0 }}
+                className={`summoning-card ${isHolographic(summoningCard.image) ? 'holographic' : ''}`}
+                initial={{ scale: 0.5, y: 300, rotateX: 0, rotateY: 0 }}
                 animate={{
-                  scale: [0.5, 1.2, 1.2, 0.8],
-                  y: [300, 0, 0, 100],
-                  rotateY: [0, 360, 720, 1080],
+                  scale: [0.5, 1.2, 1, 1],
+                  y: [300, 0, -50, 0],
+                  rotateX: [0, -30, -45, 0],
+                  rotateY: [0, 15, -180, 0],
                 }}
                 exit={{ scale: 0.5, y: 300, rotateY: 180 }}
                 transition={{
                   duration: 1.5,
-                  times: [0, 0.4, 0.6, 1],
+                  times: [0, 0.4, 0.7, 1],
                   ease: "easeInOut",
                 }}
               >
                 <img src={summoningCard.image} alt={summoningCard.name} />
-                <div className="summoning-shine"></div>
+                <motion.div 
+                  className="summoning-shine"
+                  animate={{
+                    opacity: [0, 0.7, 0.5, 0],
+                    rotateX: [-10, 10, -5, 0],
+                    rotateY: [-5, 15, -10, 0],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    times: [0, 0.4, 0.7, 1],
+                    ease: "easeInOut",
+                  }}
+                ></motion.div>
               </motion.div>
             </motion.div>
           )}

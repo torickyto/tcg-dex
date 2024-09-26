@@ -1,66 +1,66 @@
 .battle-screen {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(135deg, #1c2331 0%, #0f172a 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  .battle-content {
-    background-color: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    width: 95%;
-    max-width: 1600px;
-    height: 90vh;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    color: white;
-  }
-  
-  .battle-close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-  }
-  
-  .battle-close-button:hover {
-    transform: scale(1.1) rotate(90deg);
-  }
-  
-  .battle-opponent-area,
-  .battle-player-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
-  
-  .battle-field {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 1.5rem;
-    min-height: 180px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1);
-  }
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1c2331 0%, #0f172a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
 
-  .battle-field.dragging-over,
-.battle-hand.dragging-over {
+.battle-content {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 95%;
+  max-width: 1600px;
+  height: 90vh;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  color: white;
+  position: relative;
+}
+
+.battle-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.battle-close-button:hover {
+  transform: scale(1.1) rotate(90deg);
+}
+
+.battle-opponent-area,
+.battle-player-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.battle-field {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  min-height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.battle-field.dragging-over {
   background-color: rgba(46, 204, 113, 0.2);
   box-shadow: inset 0 0 20px rgba(46, 204, 113, 0.4);
 }
@@ -71,19 +71,27 @@
   align-items: flex-end;  
   height: 220px;
   padding-bottom: 20px; 
+  position: relative;
+  overflow: visible;
 }
 
-  
+.battle-hand.dragging-over {
+  background-color: rgba(46, 204, 113, 0.2);
+  box-shadow: inset 0 0 20px rgba(46, 204, 113, 0.4);
+}
+
 .battle-card {
-  height: 273px;
+  height: 180px;
+  width: 129px;
   background-color: #2c3e50;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
-  transform-origin: center center;
+  transform-origin: center bottom;
   transition: all 0.3s cubic-bezier(.2,1,.1,1);
   will-change: transform, transition;
+  margin: 0 5px;
 }
 
 .battle-card.is-dragging {
@@ -92,234 +100,285 @@
   z-index: 1000;
 }
 
-  
-  .battle-card:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .battle-card img {
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .battle-card:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .battle-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to bottom right,
-      rgba(255, 255, 255, 0.2) 0%,
-      rgba(255, 255, 255, 0) 80%
-    );
-    transform: rotate(45deg);
-    pointer-events: none;
-  }
-  
-  .battle-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
-    color: #ecf0f1;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    letter-spacing: 1px;
-  }
-  
-  /* Styles for dragging state */
-  .battle-card-dragging {
-    transform: scale(1.05);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-    z-index: 1000;
-  }
+.battle-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
 
-  .battle-card[data-rbd-dragging-state='true'] {
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-    z-index: 1000;
-  }
+.battle-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  .battle-card[data-rbd-drop-animation='true'] {
-    transition: all 0.3s ease !important;
-  }
-  
-  
-  /* Styles for drag destination */
-  .battle-field[data-rbd-droppable-id='player-field'][data-rbd-drop-target='true'] {
-    background-color: rgba(46, 204, 113, 0.2);
-    box-shadow: inset 0 0 20px rgba(46, 204, 113, 0.4);
-  }
-  
-  /* Scrollbar styling */
-  .battle-hand::-webkit-scrollbar {
-    height: 8px;
-  }
-  
-  .battle-hand::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
-  
-  .battle-hand::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-  }
+.battle-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  transform: rotate(45deg);
+  pointer-events: none;
+}
 
-  .summoning-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    pointer-events: none;
-    perspective: 1000px;
+h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: #ecf0f1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.battle-card[data-rbd-dragging-state='true'] {
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.battle-card[data-rbd-drop-animation='true'] {
+  transition: all 0.3s ease !important;
+}
+
+.battle-field[data-rbd-droppable-id='player-field'][data-rbd-drop-target='true'] {
+  background-color: rgba(46, 204, 113, 0.2);
+  box-shadow: inset 0 0 20px rgba(46, 204, 113, 0.4);
+}
+
+.battle-hand::-webkit-scrollbar {
+  height: 8px;
+}
+
+.battle-hand::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.battle-hand::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.summoning-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  pointer-events: none;
+  perspective: 1000px;
+}
+
+.summoning-card {
+  width: 240px;
+  height: 336px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: summoningTilt 1.1s ease-in-out;
+}
+
+.summoning-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.summoning-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0.7;
+  pointer-events: none;
+  border-radius: 15px;
+  mix-blend-mode: overlay;
+  animation: summoningShine 1.5s ease-in-out;
+}
+
+.summoning-card.holographic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 0, 0.5) 0%,
+    rgba(255, 255, 0, 0.5) 15%,
+    rgba(0, 255, 0, 0.5) 30%,
+    rgba(0, 255, 255, 0.5) 45%,
+    rgba(0, 0, 255, 0.5) 60%,
+    rgba(255, 0, 255, 0.5) 75%,
+    rgba(255, 0, 0, 0.5) 100%
+  );
+  background-size: 200% 200%;
+  animation: holographicShine 1.5s ease-in-out;
+  opacity: 0.7;
+  mix-blend-mode: color-dodge;
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+@keyframes summoningTilt {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  35% { transform: rotateX(7deg) rotateY(-12deg); }
+  100% { transform: rotateX(-26deg) rotateY(50deg); }
+}
+
+@keyframes summoningShine {
+  0%, 100% {
+    opacity: 0;
+    background-position: -200% 0;
   }
-  
-  .summoning-card {
-    width: 240px;
-    height: 336px;
-    position: relative;
-    transform-style: preserve-3d;
-    animation: summoningTilt 1.1s ease-in-out;
-  }
-  
-  .summoning-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-  }
-  
-  .summoning-shine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.4) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
+  50% {
     opacity: 0.7;
-    pointer-events: none;
-    border-radius: 15px;
-    mix-blend-mode: overlay;
-    animation: summoningShine 1.5s ease-in-out;
+    background-position: 200% 0;
   }
-  
-  .summoning-card.holographic::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 0, 0, 0.5) 0%,
-      rgba(255, 255, 0, 0.5) 15%,
-      rgba(0, 255, 0, 0.5) 30%,
-      rgba(0, 255, 255, 0.5) 45%,
-      rgba(0, 0, 255, 0.5) 60%,
-      rgba(255, 0, 255, 0.5) 75%,
-      rgba(255, 0, 0, 0.5) 100%
-    );
-    background-size: 200% 200%;
-    animation: holographicShine 1.5s ease-in-out;
-    opacity: 0.7;
-    mix-blend-mode: color-dodge;
-    border-radius: 15px;
-    pointer-events: none;
-  }
+}
 
-  @keyframes summoningTilt {
-    0% { transform: rotateX(0deg) rotateY(0deg); }
-    35% { transform: rotateX(7deg) rotateY(-12deg); }
-    100% { transform: rotateX(-26deg) rotateY(50deg); }
+@keyframes holographicShine {
+  0%, 100% {
+    background-position: 0% 0%;
   }
-  
-  @keyframes summoningShine {
-    0%, 100% {
-      opacity: 0;
-      background-position: -200% 0;
-    }
-    50% {
-      opacity: 0.7;
-      background-position: 200% 0;
-    }
+  50% {
+    background-position: 100% 100%;
   }
-  
-  @keyframes holographicShine {
-    0%, 100% {
-      background-position: 0% 0%;
-    }
-    50% {
-      background-position: 100% 100%;
-    }
-  }
-  
+}
+
+.battle-card.card-landed {
+  animation: cardLandingShake 0.3s ease-in-out;
+}
+
+@keyframes cardLandingShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px) rotate(-2deg); }
+  40% { transform: translateX(5px) rotate(2deg); }
+  60% { transform: translateX(-3px) rotate(-1deg); }
+  80% { transform: translateX(3px) rotate(1deg); }
+}
+
+.deck-area {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 100px;
+  height: 140px;
+  perspective: 1000px;
+}
+
+.deck {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(-45deg);
+}
+
+.deck-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #2c3e50;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  background-image: url('/public/images/cards/cardback1.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.deck-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 10px;
+}
+
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.battle-card:hover .card-shine {
+  opacity: 1;
+}
+
+.holographic .card-shine {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 0, 0.5) 0%,
+    rgba(255, 255, 0, 0.5) 15%,
+    rgba(0, 255, 0, 0.5) 30%,
+    rgba(0, 255, 255, 0.5) 45%,
+    rgba(0, 0, 255, 0.5) 60%,
+    rgba(255, 0, 255, 0.5) 75%,
+    rgba(255, 0, 0, 0.5) 100%
+  );
+  background-size: 200% 200%;
+  animation: holographicShine 8s linear infinite;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
   .battle-card {
-    transition: transform 0.3s ease;
+    height: 154px;
+    width: 110px;
   }
-  
-  .battle-card.card-landed {
-    animation: cardLandingShake 0.3s ease-in-out;
-  }
-  
-  @keyframes cardLandingShake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-5px) rotate(-2deg); }
-    40% { transform: translateX(5px) rotate(2deg); }
-    60% { transform: translateX(-3px) rotate(-1deg); }
-    80% { transform: translateX(3px) rotate(1deg); }
-  }
-  
-  /* Responsive design */
+}
 
-  @media (max-width: 768px) {
-    .battle-content {
-      padding: 1rem;
-    }
-  
-    .battle-field,
-    .battle-hand {
-      padding: 1rem;
-      min-height: 150px;
-    }
-  
-    h3 {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
+@media (max-width: 768px) {
+  .battle-content {
+    padding: 1rem;
   }
 
-  @media (max-width: 1200px) {
-    .battle-card {
-      height: 154px;
-    }
+  .battle-field,
+  .battle-hand {
+    padding: 1rem;
+    min-height: 150px;
   }
-  
 
-  @media (max-width: 768px) {
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
   .battle-card {
     height: 126px;
+    width: 90px;
   }
 }

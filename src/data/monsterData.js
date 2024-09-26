@@ -265,11 +265,11 @@ const monsterData = [
       {
         id: 11,
         name: "Terravark",
-        types: ["primal", "nature"],
+        types: ["primal"],
         image: "/images/monster/terravark.png",
         description: "Terravark absorbs nutrients from the soil through the plants on its back, allowing it to restore its strength while resting in one spot for days at a time. Local farmers often seek out Terravark to rest in their fields, believing that its presence will enhance crop growth for the entire season.",
         prevForm: 10,
-        nextForm: null,
+        nextForm: 12,
         stats: {
           attack: 15,
           defense: 45,
@@ -282,6 +282,30 @@ const monsterData = [
             name: "Terravark",
             image: "/images/cards/11_base.png",
             rarity: "common",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+      {
+        id: 12,
+        name: "Aardbark",
+        types: ["primal", "nature"],
+        image: "/images/monster/aardbark.png",
+        description: "When Aardbark sleeps, the plants on its shell grow rapidly, sometimes expanding entire acres around it. It is said that the air around Aardbark is fresher and purer than anywhere else. ",
+        prevForm: 11,
+        nextForm: null,
+        stats: {
+          attack: 25,
+          defense: 60,
+          level: 3
+        },
+        effect: "If Aardbark remains in play for 3 consecutive turns, draw 2 cards and reduce the attack of all opponent's monsters by 10 until the end of their next turn. Repeat.",
+        cards: [
+          {
+            id: "aardbark_base",
+            name: "Aardbark",
+            image: "/images/cards/12_base.png",
+            rarity: "uncommon",
             packAppearance: ["starter"]
           }
         ]
@@ -467,6 +491,13 @@ const monsterData = [
                 name: "Holographic Mortibane",
                 image: "/images/cards/66_holo.png",
                 rarity: "mythic",
+                packAppearance: ["starter"]
+              },
+              {
+                id: "mortibane_reverse_holo",
+                name: "Reverse Holographic Mortibane",
+                image: "/images/cards/66_reverse.png",
+                rarity: "legendary",
                 packAppearance: ["starter"]
               }
             ]
