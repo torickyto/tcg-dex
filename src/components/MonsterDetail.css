@@ -398,3 +398,7 @@
   .monster-type.magic {
     background-color: #f393fc;
   }
+
+  .monster-type.nature {
+    background-color: #89d46b;
+  }

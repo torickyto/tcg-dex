@@ -23,6 +23,7 @@ function MonsterList({ monsters, setSelectedMonster, selectedMonster }) {
         parasite: 'rgba(255, 18, 18, 0.2)',
         primal: 'rgba(192, 136, 71, 0.2)',
         magic: 'rgba(252, 89, 255, 0.3)',
+        nature: 'rgba(109, 182, 99, 0.3)',
       };
       return {
         '--color1': colorMap[types[0].toLowerCase()],

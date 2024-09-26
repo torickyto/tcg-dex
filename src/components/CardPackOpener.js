@@ -5,7 +5,7 @@ import monsterData from '../data/monsterData';
 import './CardPackOpener.css';
 
 const packTypes = {
-  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.50, uncommon: 0.2, rare: 0.15, epic: 0.1, legendary: 0.05 }, color: '#4CAF50' },
+  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.45, uncommon: 0.26, rare: 0.16, epic: 0.04, mythic: 0.07, legendary: 0.02 }, color: '#4CAF50' },
 };
 
 const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
@@ -100,7 +100,7 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
         const moveY = ((y - centerY) / centerY) * 40;
         shine.style.backgroundPosition = `${50 + moveX}% ${50 + moveY}%`;
         
-        if (cards[index].rarity === 'legendary' || cards[index].rarity === 'epic') {
+        if (cards[index].rarity === 'legendary' || cards[index].rarity === 'mythic') {
           const hue = (moveX + moveY) * 0.04;
           shine.style.filter = `hue-rotate(${hue}deg)`;
         }
@@ -115,7 +115,7 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
       const shine = card.querySelector('.card-front .card-shine');
       if (shine) {
         shine.style.backgroundPosition = '50% 50%';
-        if (cards[index].rarity === 'legendary' || cards[index].rarity === 'epic') {
+        if (cards[index].rarity === 'legendary' || cards[index].rarity === 'mythic') {
           shine.style.filter = 'none';
         }
       }
@@ -183,7 +183,7 @@ const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
                         </div>
                         <div className="card-face card-front">
                           <img src={card.image} alt={card.name} />
-                          <div className={`card-shine ${(card.rarity === 'legendary' || card.rarity === 'epic') ? 'holographic' : ''} ${card.rarity.toLowerCase()}`}></div>
+                          <div className={`card-shine ${(card.rarity === 'legendary' || card.rarity === 'mythic') ? 'holographic' : ''} ${card.rarity.toLowerCase()}`}></div>
                         </div>
                       </div>
                     </motion.div>

@@ -130,6 +130,13 @@
   text-shadow: 0 0 5px rgba(75, 0, 130, 0.7);
 }
 
+.rarity-mythic {
+  background: linear-gradient(45deg, #2bdce2, #24f8ff);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+  text-shadow: 0 0 5px rgba(0, 255, 242, 0.7);
+}
+
 .rarity-legendary {
   background: linear-gradient(45deg, #ffd700, #ff8c00);
   color: #fff;

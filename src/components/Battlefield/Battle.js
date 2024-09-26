@@ -18,7 +18,8 @@ const Battle = ({ onClose }) => {
 
   const [playerField, setPlayerField] = useState([]);
   const [opponentField] = useState([
-    { id: 'card-10', name: 'Miteor', image: '/images/cards/10_base.png', stats: { attack: 15, defense: 30 }, effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats." },
+    { id: 'card-13', name: 'Miteor', image: '/images/cards/13_base.png', stats: { attack: 15, defense: 30 }, effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats." },
+    { id: 'card-66', name: 'Miteor', image: '/images/cards/66_holo.png', stats: { attack: 15, defense: 30 }, effect: "When Miteor defeats an opponent's monster, it absorbs 50% of that monster's max HP, permanently increasing its own stats." },
   ]);
 
   const [hoveredCard, setHoveredCard] = useState(null);

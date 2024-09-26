@@ -8,6 +8,7 @@ function MonsterDetail({ monster, allMonsters, setSelectedMonster }) {
   const [evolutionLine, setEvolutionLine] = useState([]);
   const [baseCardExists, setBaseCardExists] = useState(false);
   const [holoCardExists, setHoloCardExists] = useState(false);
+  const [reverseCardExists, setReverseCardExists] = useState(false);
 
   const stats = monster.stats || {
     attack: 1000,
@@ -49,6 +50,7 @@ function MonsterDetail({ monster, allMonsters, setSelectedMonster }) {
 
     checkImageExists(`/images/cards/${monster.id}_base.png`).then(setBaseCardExists);
     checkImageExists(`/images/cards/${monster.id}_holo.png`).then(setHoloCardExists);
+    checkImageExists(`/images/cards/${monster.id}_reverse.png`).then(setReverseCardExists);
   }, [monster, allMonsters]);
 
   const renderStars = (level) => {
@@ -118,6 +120,14 @@ function MonsterDetail({ monster, allMonsters, setSelectedMonster }) {
                   alt={`${monster.name} Holo Card`} 
                   className={`monster-card ${expandedCard === 'holo' ? 'expanded' : ''}`}
                   onClick={() => handleCardClick('holo')}
+                />
+              )}
+              {reverseCardExists && (
+                <img 
+                  src={`/images/cards/${monster.id}_reverse.png`} 
+                  alt={`${monster.name} Reverse Card`} 
+                  className={`monster-card ${expandedCard === 'reverse' ? 'expanded' : ''}`}
+                  onClick={() => handleCardClick('reverse')}
                 />
               )}
             </div>

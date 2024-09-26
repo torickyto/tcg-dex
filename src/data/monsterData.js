@@ -43,7 +43,7 @@ const monsterData = [
           id: "felazor_base",
           name: "Felazor",
           image: "/images/cards/2_base.png",
-          rarity: "common",
+          rarity: "uncommon",
           packAppearance: ["starter"]
         }
       ]
@@ -67,14 +67,14 @@ const monsterData = [
           id: "starlynx_base",
           name: "Starlynx",
           image: "/images/cards/3_base.png",
-          rarity: "uncommon",
+          rarity: "rare",
           packAppearance: ["starter"]
         },
         {
           id: "starlynx_holo",
           name: "Holographic Starlynx",
           image: "/images/cards/3_holo.png",
-          rarity: "epic",
+          rarity: "mythic",
           packAppearance: ["starter"]
         }
       ]
@@ -123,7 +123,7 @@ const monsterData = [
             id: "neantile_base",
             name: "Neantile",
             image: "/images/cards/5_base.png",
-            rarity: "common",
+            rarity: "uncommon",
             packAppearance: ["starter"]
           }
         ]
@@ -147,14 +147,14 @@ const monsterData = [
             id: "guignoleon_base",
             name: "Guignoleon",
             image: "/images/cards/6_base.png",
-            rarity: "uncommon",
+            rarity: "rare",
             packAppearance: ["starter"]
           },
           {
             id: "guignoleon holo",
             name: "Holographic Guignoleon",
             image: "/images/cards/6_holo.png",
-            rarity: "epic",
+            rarity: "mythic",
             packAppearance: ["starter"]
           }
         ]
@@ -202,7 +202,7 @@ const monsterData = [
             id: "orbitot_base",
             name: "Orbitot",
             image: "/images/cards/8_base.png",
-            rarity: "common",
+            rarity: "uncommon",
             packAppearance: ["starter"]
           }
         ]
@@ -226,20 +226,68 @@ const monsterData = [
             id: "cosmajesty_base",
             name: "Cosmajesty",
             image: "/images/cards/9_base.png",
-            rarity: "uncommon",
+            rarity: "rare",
             packAppearance: ["starter"]
           },
           {
             id: "cosmajesty holo",
             name: "Holographic Cosmajesty",
             image: "/images/cards/9_holo.png",
-            rarity: "epic",
+            rarity: "mythic",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+      {
+        id: 10,
+        name: "Caravark",
+        types: ["primal"],
+        image: "/images/monster/caravark.png",
+        description: "Caravark is known for its ground-burrowing and durable shell that can store minerals and nutrients, allowing it to dig for days without rest. Its nose is highly sensitive, capable of detecting food deep beneath the surface.",
+        prevForm: null,
+        nextForm: 11,
+        stats: {
+          attack: 10,
+          defense: 35,
+          level: 1
+        },
+        effect: "Once per turn, when Caravark is attacked, reduce the incoming damage by 5.",
+        cards: [
+          {
+            id: "caravark_base",
+            name: "Carravark",
+            image: "/images/cards/10_base.png",
+            rarity: "common",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+      {
+        id: 11,
+        name: "Terravark",
+        types: ["primal", "nature"],
+        image: "/images/monster/terravark.png",
+        description: "Terravark absorbs nutrients from the soil through the plants on its back, allowing it to restore its strength while resting in one spot for days at a time. Local farmers often seek out Terravark to rest in their fields, believing that its presence will enhance crop growth for the entire season.",
+        prevForm: 10,
+        nextForm: null,
+        stats: {
+          attack: 15,
+          defense: 45,
+          level: 2
+        },
+        effect: "When Terravark is attacked, flip a coin. If heads, reduce the incoming damage by 10.",
+        cards: [
+          {
+            id: "terravark_base",
+            name: "Terravark",
+            image: "/images/cards/11_base.png",
+            rarity: "common",
             packAppearance: ["starter"]
           }
         ]
       },
         {
-          id: 10,
+          id: 13,
           name: "Miteor",
           types: ["parasite"],
           image: "/images/monster/miteor.png",
@@ -257,14 +305,14 @@ const monsterData = [
             {
               id: "miteor_base",
               name: "Miteor",
-              image: "/images/cards/10_base.png",
+              image: "/images/cards/13_base.png",
               rarity: "common",
               packAppearance: ["starter"]
             }
           ]
         },
         {
-          id: 11,
+          id: 14,
           name: "Titanitick",
           types: ["parasite", "death"],
           image: "/images/monster/titanitick.png",
@@ -282,15 +330,63 @@ const monsterData = [
           {
             id: "titanitick_base",
             name: "Titanitick",
-            image: "/images/cards/11_base.png",
-            rarity: "uncommon",
+            image: "/images/cards/14_base.png",
+            rarity: "rare",
             packAppearance: ["starter"]
           },
           {
             id: "titanitick holo",
             name: "Holographic Titanitick",
-            image: "/images/cards/11_holo.png",
-            rarity: "epic",
+            image: "/images/cards/14_holo.png",
+            rarity: "mythic",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+      {
+        id: 23,
+        name: "Vorg",
+        types: ["void"],
+        image: "/images/monster/vorg.png",
+        description: "Throwaway placeholder monster",
+        prevForm: null,
+        nextForm: null,
+        stats: {
+          attack: 1,
+          defense: 1,
+          level: 2
+        },
+        effect: "borg",        
+        cards: [
+          {
+            id: "vorg_base",
+            name: "Vorg",
+            image: "/images/cards/23_base.png",
+            rarity: "uncommon",
+            packAppearance: ["starter"]
+          }
+        ]
+      },
+      {
+        id: 24,
+        name: "Vorgore",
+        types: ["void", "primal"],
+        image: "/images/monster/kingvorger.png",
+        description: "Throwaway placeholder monster",
+        prevForm: null,
+        nextForm: null,
+        stats: {
+          attack: 1,
+          defense: 1,
+          level: 2
+        },
+        effect: "borger",        
+        cards: [
+          {
+            id: "Vorgore_base",
+            name: "Vorgore",
+            image: "/images/cards/24_base.png",
+            rarity: "rare",
             packAppearance: ["starter"]
           }
         ]
@@ -339,7 +435,7 @@ const monsterData = [
               id: "bonapeti_base",
               name: "Bonapeti",
               image: "/images/cards/38_base.png",
-              rarity: "uncommon",
+              rarity: "rare",
               packAppearance: ["starter"]
             }
           ]
@@ -347,7 +443,7 @@ const monsterData = [
         {
             id: 66,
             name: "Mortibane",
-            types: ["death", "magic"],
+            types: ["death"],
             image: "/images/monster/mortibane.png",
             description: "Mortibane is both feared and revered in certain cultures. Some view its appearance as a sacred omen, signaling the end of one cycle and the beginning of another. Folklore suggests that those who accept their fate in Mortibane's presence may gain profound wisdom about the nature of existence. However, those who resist are said to vanish without a trace, their very essence erased from reality.",
             prevForm: null,
@@ -363,14 +459,14 @@ const monsterData = [
                 id: "mortibane_base",
                 name: "Mortibane",
                 image: "/images/cards/66_base.png",
-                rarity: "rare",
+                rarity: "epic",
                 packAppearance: ["starter"]
               },
               {
                 id: "mortibane_holo",
                 name: "Holographic Mortibane",
                 image: "/images/cards/66_holo.png",
-                rarity: "legendary",
+                rarity: "mythic",
                 packAppearance: ["starter"]
               }
             ]
@@ -395,13 +491,20 @@ const monsterData = [
                 id: "usurpent_base",
                 name: "Usurpent",
                 image: "/images/cards/70_base.png",
-                rarity: "rare",
+                rarity: "epic",
                 packAppearance: ["starter"]
               },
               {
                 id: "usurpent_holo",
                 name: "Holographic Usurpent",
                 image: "/images/cards/70_holo.png",
+                rarity: "mythic",
+                packAppearance: ["starter"]
+              },
+              {
+                id: "usurpent_reverse_holo",
+                name: "Reverse Holographic Usurpent",
+                image: "/images/cards/70_reverse.png",
                 rarity: "legendary",
                 packAppearance: ["starter"]
               }
