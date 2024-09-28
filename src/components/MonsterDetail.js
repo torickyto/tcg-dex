@@ -5,7 +5,7 @@ import './MonsterDetail.css';
 function MonsterDetail({ monster, allMonsters, setSelectedMonster }) {
   const [expandedCard, setExpandedCard] = useState(null);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
-  const [evolutionLine, setEvolutionLine] = useState([]);
+  const [evolutionLines, setEvolutionLines] = useState([]);
   const [baseCardExists, setBaseCardExists] = useState(false);
   const [holoCardExists, setHoloCardExists] = useState(false);
   const [reverseCardExists, setReverseCardExists] = useState(false);
@@ -25,18 +25,34 @@ function MonsterDetail({ monster, allMonsters, setSelectedMonster }) {
       return getBaseForm(prevMonster);
     };
 
-    const buildEvolutionLine = (baseMonster, line = []) => {
-      line.push(baseMonster);
-      if (baseMonster.nextForm) {
-        const nextMonster = allMonsters.find(m => m.id === baseMonster.nextForm);
-        return buildEvolutionLine(nextMonster, line);
-      }
-      return line;
+    const buildEvolutionLines = (baseMonster) => {
+      const lines = [];
+      const buildLine = (currentMonster, line = []) => {
+        line.push(currentMonster);
+        if (currentMonster.nextForms && currentMonster.nextForms.length > 0) {
+          currentMonster.nextForms.forEach(nextFormId => {
+            const nextMonster = allMonsters.find(m => m.id === nextFormId);
+            if (nextMonster) {
+              buildLine(nextMonster, [...line]);
+            }
+          });
+        } else if (currentMonster.nextForm) {
+          const nextMonster = allMonsters.find(m => m.id === currentMonster.nextForm);
+          if (nextMonster) {
+            buildLine(nextMonster, line);
+          }
+        } else {
+          lines.push(line);
+        }
+      };
+
+      buildLine(baseMonster);
+      return lines;
     };
 
     const baseForm = getBaseForm(monster);
-    const fullLine = buildEvolutionLine(baseForm);
-    setEvolutionLine(fullLine);
+    const fullLines = buildEvolutionLines(baseForm);
+    setEvolutionLines(fullLines);
 
     // Check if card images exist
     const checkImageExists = (url) => {
@@ -134,29 +150,31 @@ function MonsterDetail({ monster, allMonsters, setSelectedMonster }) {
           </div>
         </div>
         <div className="monster-right-column">
-          <div className="evolution-chain">
-            {evolutionLine.map((evoMonster, index) => (
-              <React.Fragment key={evoMonster.id}>
-                {index > 0 && (
-                  <div className="evolution-arrow-container">
-                    <ChevronRight className="evolution-arrow" />
-                    <div className="evolution-condition">
-                      {evoMonster.evolutionCondition || "Unknown condition"}
+          {evolutionLines.map((line, lineIndex) => (
+            <div key={lineIndex} className="evolution-chain">
+              {line.map((evoMonster, index) => (
+                <React.Fragment key={evoMonster.id}>
+                  {index > 0 && (
+                    <div className="evolution-arrow-container">
+                      <ChevronRight className="evolution-arrow" />
+                      <div className="evolution-condition">
+                        {evoMonster.evolutionCondition || "Unknown condition"}
+                      </div>
+                    </div>
+                  )}
+                  <div
+                    className={`evolution-item ${evoMonster.id === monster.id ? 'current' : ''}`}
+                    onClick={() => setSelectedMonster(evoMonster)}
+                  >
+                    <div className="evolution-content">
+                      <img src={evoMonster.image} alt={evoMonster.name} />
+                      <span>{evoMonster.name}</span>
                     </div>
                   </div>
-                )}
-                <div
-                  className={`evolution-item ${evoMonster.id === monster.id ? 'current' : ''}`}
-                  onClick={() => setSelectedMonster(evoMonster)}
-                >
-                  <div className="evolution-content">
-                    <img src={evoMonster.image} alt={evoMonster.name} />
-                    <span>{evoMonster.name}</span>
-                  </div>
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
+                </React.Fragment>
+              ))}
+            </div>
+          ))}
           <div className="monster-description-box">
             <p>{monster.description}</p>
           </div>

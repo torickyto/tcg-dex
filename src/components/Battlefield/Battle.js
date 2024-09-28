@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -24,6 +24,10 @@ const Battle = ({ onClose }) => {
     return null;
   };
 
+  const isHolographic = (cardImage) => {
+    return cardImage.includes('holo') || cardImage.includes('reverse');
+  };
+
   const initialPlayerHandIds = ['mortibane_holo', 'usurpent_reverse_holo', 'starlynx_holo', 'nihiliz_base', 'neantile_base', 'guignoleon_base', 'mortibane_reverse_holo'];
   const initialPlayerHand = initialPlayerHandIds.map(getCardData).filter(Boolean);
 
@@ -39,41 +43,8 @@ const Battle = ({ onClose }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [summoningCard, setSummoningCard] = useState(null);
   const [summoningPosition, setSummoningPosition] = useState({ x: 0, y: 0 });
-  const [isSummoning, setIsSummoning] = useState(false);
-  const [isDrawingInitialHand, setIsDrawingInitialHand] = useState(true);
-  const [drawnCards, setDrawnCards] = useState([]);
-
   const fieldRef = useRef(null);
-  const deckRef = useRef(null);
-  const handRef = useRef(null);
-
-  useEffect(() => {
-    if (isDrawingInitialHand) {
-      drawInitialHand();
-    }
-  }, [isDrawingInitialHand]);
-
-  const drawInitialHand = () => {
-    const drawNextCard = (index) => {
-      if (index >= initialPlayerHand.length) {
-        setIsDrawingInitialHand(false);
-        setPlayerHand(initialPlayerHand);
-        return;
-      }
-
-      const card = initialPlayerHand[index];
-      setDrawnCards(prev => [...prev, card]);
-
-      setTimeout(() => drawNextCard(index + 1), 200);
-    };
-
-    drawNextCard(0);
-  };
-
-  const isHolographic = (cardImage) => {
-    return cardImage.includes('holo') || cardImage.includes('reverse');
-  };
-
+  const [isSummoning, setIsSummoning] = useState(false);
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -269,18 +240,18 @@ const Battle = ({ onClose }) => {
                   scale: [0.5, 1.2, 1, 1],
                   y: [300, 0, -50, 0],
                   rotateX: [0, -30, -45, 0],
-                  rotateY: [0, 15, -180, 0],
+                  rotateY: [10, 15, -55, 0],
                 }}
                 exit={{ scale: 0.5, y: 300, rotateY: 180 }}
                 transition={{
-                  duration: 1.5,
-                  times: [0, 0.4, 0.7, 1],
+                  duration: 1.2,
+                  times: [0, 0.3, 0.8, 1],
                   ease: "easeInOut",
                 }}
               >
                 <img src={summoningCard.image} alt={summoningCard.name} />
                 <motion.div 
-                  className="summoning-shine"
+                  className={`summoning-shine ${isHolographic(summoningCard.image) ? 'holographic' : ''}`}
                   animate={{
                     opacity: [0, 0.7, 0.5, 0],
                     rotateX: [-10, 10, -5, 0],

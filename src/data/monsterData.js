@@ -264,10 +264,10 @@ const monsterData = [
       },
       {
         id: 11,
-        name: "Terravark",
+        name: "Tortark",
         types: ["primal"],
-        image: "/images/monster/terravark.png",
-        description: "Terravark absorbs nutrients from the soil through the plants on its back, allowing it to restore its strength while resting in one spot for days at a time. Local farmers often seek out Terravark to rest in their fields, believing that its presence will enhance crop growth for the entire season.",
+        image: "/images/monster/tortark.png",
+        description: "Tortark absorbs nutrients from the soil through the plants on its back, allowing it to restore its strength while resting in one spot for days at a time. Local farmers often seek out Tortark to rest in their fields, believing that its presence will enhance crop growth for the entire season.",
         prevForm: 10,
         nextForm: 12,
         stats: {
@@ -317,7 +317,7 @@ const monsterData = [
           image: "/images/monster/miteor.png",
           description: "Miteor, often mistaken for harmless space debris, drifts silently through the cosmos. They survive the vacuum of space by entering a state of suspended animation, awakening only when they detect life. Their presence has led to the mysterious decline of countless alien ecosystems.",
           prevForm: null,
-          nextForm: 11,
+          nextForm: 14,
           stats: {
             attack: 15,
             defense: 30,
@@ -341,7 +341,7 @@ const monsterData = [
           types: ["parasite", "death"],
           image: "/images/monster/titanitick.png",
           description: "Titaniticks are often mistaken for rogue planets or derelict space stations. These parasites are believed to be responsible for the mysterious disappearances of entire star systems. Some theorists propose that Titanitick doesn't simply consume, but rather 'archives' entire civilizations within its interior, preserving them for reasons unknown.",
-          prevForm: 10,
+          prevForm: 13,
           nextForm: null,
           stats: {
             attack: 35,
@@ -374,7 +374,7 @@ const monsterData = [
         image: "/images/monster/vorg.png",
         description: "Throwaway placeholder monster",
         prevForm: null,
-        nextForm: null,
+        nextForm: 24,
         stats: {
           attack: 1,
           defense: 1,
@@ -397,12 +397,12 @@ const monsterData = [
         types: ["void", "primal"],
         image: "/images/monster/kingvorger.png",
         description: "Throwaway placeholder monster",
-        prevForm: null,
+        prevForm: 23,
         nextForm: null,
         stats: {
           attack: 1,
           defense: 1,
-          level: 2
+          level: 3
         },
         effect: "borger",        
         cards: [
@@ -414,6 +414,51 @@ const monsterData = [
             packAppearance: ["starter"]
           }
         ]
+      },
+      {
+        id: 33,
+        name: "Stellora",
+        types: ["magic"],
+        image: "/images/monster/stellora.png",
+        description: "Born from the wishes upon shooting stars, Stellora's glow is said to correlate with the purity of the desire that spawned it. The brightest Stellora are believed to come from the most heartfelt wishes. They're often found clustering around space stations and colonies, drawn to the concentrated hopes and ambitions of the inhabitants.",
+        prevForm: null,
+        nextForms: [34, 35],
+        stats: {
+          attack: 1,
+          defense: 1,
+          level: 1
+        },
+        effect: "When Stellora is summoned, you may look at the top 3 cards of your deck and place them back in any order.",        
+      },
+      {
+        id: 34,
+        name: "Cyberluma",
+        types: ["magic", "pulse"],
+        image: "/images/monster/cyberluma.png",
+        description: "When a Stellora travels through the aftermath of cosmic wars littered with the husks of fallen ships, it evolves into Cyberluma. As it travels, Cyberluma collects and preserves the last messages and final orders of fallen commanders, sometimes completing missions that have been unfinished for millennia.",
+        prevForm: 33,
+        nextForm: null,
+        stats: {
+          attack: 1,
+          defense: 1,
+          level: 3
+        },
+        effect: "placeholder",        
+      },
+      {
+        id: 35,
+        name: "Noctiluma",
+        types: ["magic", "void"],
+        image: "/images/monster/noctiluma.png",
+        description: "Noctiluma emerges when Stellora is exposed to the death of a civilization, its form twisted by the realization that not all can be saved. They roam these desolate areas, feeding upon the forgotten dreams and wishes of lost societies.",
+        prevForm: 33,
+        nextForm: null,
+        stats: {
+          attack: 1,
+          defense: 1,
+          level: 3
+        },
+        effect: "placeholder",        
       },
         {
           id: 37,
