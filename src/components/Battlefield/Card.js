@@ -14,6 +14,7 @@ export const Card = ({ card, position, rotation }) => {
 
   const isHolographic = card.rarity === 'mythic' || card.rarity === 'legendary';
 
+  //holographic shine
   const material = useMemo(() => {
     if (isHolographic) {
       const holographicTexture = new THREE.TextureLoader().load('/textures/holo_specular.png');
@@ -48,23 +49,22 @@ export const Card = ({ card, position, rotation }) => {
           void main() {
             vec4 color = texture2D(map, vUv);
             
-            // Calculate fresnel effect
             vec3 viewDirectionW = normalize(vViewPosition);
             float fresnelTerm = dot(viewDirectionW, vNormal);
-            fresnelTerm = clamp(1.0 - fresnelTerm, 0., 1.);
+            fresnelTerm = clamp(1.0 - fresnelTerm, 0.75, 1.);
             
-            // Holographic effect based on rotation and fresnel
+            // holographic based on rotation and fresnel
             vec2 holoUv = vUv + vec2(
               sin(time * 2.0 + vUv.y * 10.0 + rotation.x) * 0.02,
               cos(time * 2.0 + vUv.x * 10.0 + rotation.y) * 0.02
             );
             vec4 holo = texture2D(holoMap, holoUv);
             
-            // Enhance holo colors
-            holo.rgb *= 5.0;
+            // holo colors intensity
+            holo.rgb *= 1.99;
             
-            // Mix color and holographic effect
-            vec4 finalColor = color + holo * fresnelTerm * .9;
+            // mix color and holographic effect
+            vec4 finalColor = color + holo * fresnelTerm * .2;
             finalColor.a = color.a;
             gl_FragColor = finalColor;
           }
@@ -75,7 +75,7 @@ export const Card = ({ card, position, rotation }) => {
     }
   }, [texture, isHolographic]);
 
-  // Create rounded rectangle shape
+  // card shape
   const shape = useMemo(() => {
     const shape = new THREE.Shape();
     const width = 2.5;
@@ -95,7 +95,7 @@ export const Card = ({ card, position, rotation }) => {
     return shape;
   }, []);
 
-  // Create extruded geometry with custom UV mapping
+  // card geometry
   const geometry = useMemo(() => {
     const extrudeSettings = {
       steps: 1,
@@ -104,7 +104,7 @@ export const Card = ({ card, position, rotation }) => {
     };
     const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
     
-    // Custom UV mapping to ensure the texture fills the card
+    // UV mapping (img fills the card)
     const positionAttribute = geometry.attributes.position;
     const uvAttribute = geometry.attributes.uv;
     for (let i = 0; i < positionAttribute.count; i++) {
@@ -117,15 +117,9 @@ export const Card = ({ card, position, rotation }) => {
   }, [shape]);
 
   useFrame((state) => {
-    if (hovered) {
-      meshRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 2) * 0.1;
-    } else {
-      meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, 0, 0.1);
-    }
-
-    if (isHolographic && material.uniforms) {
-      material.uniforms.time.value = state.clock.getElapsedTime();
-      material.uniforms.rotation.value.set(
+    if (isHolographic && meshRef.current.material.uniforms) {
+      meshRef.current.material.uniforms.time.value = state.clock.getElapsedTime();
+      meshRef.current.material.uniforms.rotation.value.set(
         meshRef.current.rotation.x,
         meshRef.current.rotation.y,
         meshRef.current.rotation.z
@@ -134,7 +128,7 @@ export const Card = ({ card, position, rotation }) => {
   });
 
   return (
-    <group position={position} rotation={rotation}>
+    <group>
       <mesh
         ref={meshRef}
         geometry={geometry}
@@ -143,9 +137,9 @@ export const Card = ({ card, position, rotation }) => {
         onPointerOut={() => setHovered(false)}
       />
       <Text
-        position={[0, -1.6, 0.06]}
-        fontSize={0.2}
-        color="white"
+        position={[0, -1.8, 0.06]}
+        fontSize={0.1}
+        color="black"
         anchorX="center"
         anchorY="middle"
       >
