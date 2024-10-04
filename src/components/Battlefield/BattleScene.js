@@ -2,12 +2,14 @@ import React, { Suspense, useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, Environment, useTexture, Text } from '@react-three/drei';
 import BattleBoard from './BattleBoard';
+import Card from './Card'; 
+
 import { Vector3 } from 'three';
 
 const CameraController = () => {
   const { camera } = useThree();
-  const targetPosition = new Vector3(0, 12, 10); 
-  const targetLookAt = new Vector3(0, 0, -4); 
+  const targetPosition = new Vector3(0, 12, 10);
+  const targetLookAt = new Vector3(0, 0, -4);
 
   useFrame(() => {
     camera.position.lerp(targetPosition, 0.05);
@@ -42,6 +44,29 @@ const PlayerUI = ({ position, name, avatar }) => {
   );
 };
 
+const PlayerHand = () => {
+  const mortibaneCard = {
+    id: "mortibane_base",
+    name: "Mortibane",
+    image: "/images/cards/66_base.png",
+    rarity: "epic"
+  };
+
+  const mortibaneReverseHolo = {
+    id: "mortibane_reverse_holo",
+    name: "Reverse Holo Mortibane",
+    image: "/images/cards/66_reverse.png",
+    rarity: "legendary"
+  };
+
+  return (
+    <group position={[0, 2, 5]}>
+      <Card card={mortibaneCard} position={[-1.5, 0, 0]} rotation={[-Math.PI / 4, 0, 0]} />
+      <Card card={mortibaneReverseHolo} position={[1.5, 0, 0]} rotation={[-Math.PI / 4, 0, 0]} />
+    </group>
+  );
+};
+
 const BattleScene = ({ onClose }) => {
   const canvasRef = useRef();
 
@@ -60,29 +85,15 @@ const BattleScene = ({ onClose }) => {
     <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
       <Canvas ref={canvasRef} shadows>
         <Suspense fallback={null}>
-          <PerspectiveCamera makeDefault fov={65} /> {/* FOV */}
+          <PerspectiveCamera makeDefault fov={65} />
           <CameraController />
           <Environment preset="sunset" background blur={0.5} />
           <BattleBoard />
           <PlayerUI position={[8, 5, 5]} name="You" avatar="/avatars/player.png" />
           <PlayerUI position={[-9.5, 8, -7]}  name="Opponent" avatar="/avatars/opponent.png" />
+          <PlayerHand />
         </Suspense>
       </Canvas>
-      <div style={{
-        position: 'absolute',
-        bottom: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '80%',
-        height: '100px', 
-        background: 'rgba(0, 0, 0, 0.5)',
-        borderRadius: '10px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <p style={{ color: 'white', fontSize: '18px' }}>Player Hand Area Placeholder</p>
-      </div>
       <button
         style={{
           position: 'absolute',
