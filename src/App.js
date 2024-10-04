@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MonsterDex from './components/MonsterDex';
 import ThemeToggle from './components/ThemeToggle';
-import Battle from './components/Battlefield/Battle';
+import BattleScene from './components/Battlefield/BattleScene';
 import './App.css';
 
 function App() {
@@ -19,12 +19,12 @@ function App() {
             className="battle-button" 
             onClick={() => setIsBattleMode(true)}
           >
-            Battle Simulation
+            3D Battle Simulation
           </button>
         </>
       )}
       {isBattleMode && (
-        <Battle onClose={() => setIsBattleMode(false)} />
+        <BattleScene onClose={() => setIsBattleMode(false)} />
       )}
     </div>
   );

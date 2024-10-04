@@ -5,7 +5,7 @@ import monsterData from '../data/monsterData';
 import './CardPackOpener.css';
 
 const packTypes = {
-  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.45, uncommon: 0.26, rare: 0.16, epic: 0.04, mythic: 0.07, legendary: 0.02 }, color: '#4CAF50' },
+  starter: { name: "Starter Pack", cardCount: 5, rarityDistribution: { common: 0.44, uncommon: 0.26, rare: 0.17, epic: 0.04, mythic: 0.07, legendary: 0.02 }, color: '#4CAF50' },
 };
 
 const CardPackOpener = ({ isOpen, onClose, onCardOpened }) => {
