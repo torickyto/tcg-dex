@@ -56,30 +56,59 @@ const PlayerHand = ({ onHoverSlot, onPlaceCard }) => {
   
     const mortibaneReverseHolo = {
       id: "mortibane_reverse_holo",
-      name: "Reverse Holo Mortibane",
+      name: "Mortibane",
       image: "/images/cards/66_reverse.png",
       rarity: "legendary"
     };
+
+    const nihilizCard = {
+        id: "nihiliz_base",
+        name: "Nihiliz",
+        image: "/images/cards/4_base.png",
+        rarity: "common"
+    };
+
+    const starlynxCard = {
+        id: "starlynx_holographic",
+        name: "Starlynx",
+        image: "/images/cards/3_holo.png",
+        rarity: "epic"
+    };
   
     return (
-      <group position={[0, 2.5, 5.3]}>
-        <DraggableCard 
-          card={mortibaneCard} 
-          position={[-1.5, 0, 0]} 
-          rotation={[-Math.PI / 4, 0, 0]} 
-          onHoverSlot={onHoverSlot} 
-          onPlaceCard={onPlaceCard}
-        />
-        <DraggableCard 
-          card={mortibaneReverseHolo} 
-          position={[1.5, 0, 0]} 
-          rotation={[-Math.PI / 4, 0, 0]} 
-          onHoverSlot={onHoverSlot} 
-          onPlaceCard={onPlaceCard}
-        />
-      </group>
-    );
-  };
+        <group position={[0, 2.5, 5.3]}>
+          <DraggableCard 
+            card={mortibaneCard} 
+            position={[-4.5, 0, 0]} 
+            rotation={[-Math.PI / 4, 0, 0]} 
+            onHoverSlot={onHoverSlot} 
+            onPlaceCard={onPlaceCard}
+          />
+          <DraggableCard 
+            card={mortibaneReverseHolo} 
+            position={[-1.5, 0, 0]} 
+            rotation={[-Math.PI / 4, 0, 0]} 
+            onHoverSlot={onHoverSlot} 
+            onPlaceCard={onPlaceCard}
+          />
+          <DraggableCard 
+            card={nihilizCard} 
+            position={[1.5, 0, 0]} 
+            rotation={[-Math.PI / 4, 0, 0]} 
+            onHoverSlot={onHoverSlot} 
+            onPlaceCard={onPlaceCard}
+          />
+          <DraggableCard 
+            card={starlynxCard} 
+            position={[4.5, 0, 0]} 
+            rotation={[-Math.PI / 4, 0, 0]} 
+            onHoverSlot={onHoverSlot} 
+            onPlaceCard={onPlaceCard}
+          />
+        </group>
+      );
+    };
+    
 
   const BattleScene = ({ onClose }) => {
     const canvasRef = useRef();

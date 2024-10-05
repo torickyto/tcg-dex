@@ -1,14 +1,16 @@
-import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useRef, useState, useCallback, useMemo, useEffect, Suspense } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useSpring, a } from '@react-spring/three';
 import Card from './Card';
+import ModelHologram from './ModelHologram';
 
 const DraggableCard = ({ card, position, rotation, onHoverSlot, onPlaceCard }) => {
   const meshRef = useRef();
   const [isDragging, setIsDragging] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
+  const [hoveredSlot, setHoveredSlot] = useState(null);
   const [summonAnimation, setSummonAnimation] = useState(null);
   const dragStart = useRef(new THREE.Vector3());
   const dragOffset = useRef(new THREE.Vector3());
@@ -17,6 +19,8 @@ const DraggableCard = ({ card, position, rotation, onHoverSlot, onPlaceCard }) =
   const targetPosition = useRef(new THREE.Vector3());
   
   const { camera, gl } = useThree();
+
+
 
   // reference plane for the gameboard
   const boardPlane = useMemo(() => {
@@ -66,6 +70,10 @@ const DraggableCard = ({ card, position, rotation, onHoverSlot, onPlaceCard }) =
     gl.domElement.style.cursor = 'grabbing';
   }, [gl, isPlaced]);
 
+  //placeholder nihiliz model
+  const [showModel, setShowModel] = useState(false);
+  const [modelPosition, setModelPosition] = useState(position);
+
   const onPointerUp = useCallback(() => {
     setIsDragging(false);
     gl.domElement.style.cursor = isHovered ? 'pointer' : 'auto';
@@ -97,6 +105,11 @@ const DraggableCard = ({ card, position, rotation, onHoverSlot, onPlaceCard }) =
         midRotation,
         endRotation
       });
+      setTimeout(() => {
+        console.log('Showing Nihiliz model');
+        setShowModel(true);
+        setModelPosition(endPosition.toArray());
+      }, 2000);
     } else if (!isPlaced) {
       // spring back to position in hand if card not played
       setSpring({
@@ -106,9 +119,9 @@ const DraggableCard = ({ card, position, rotation, onHoverSlot, onPlaceCard }) =
         config: { mass: 1, tension: 180, friction: 12 }
       });
     }
-  }, [gl, isHovered, onPlaceCard, setSpring, slotPositions, checkSlotHover, card, isPlaced]);
+   }, [gl, isHovered, onPlaceCard, setSpring, slotPositions, checkSlotHover, card, isPlaced]);
 
-  const onPointerMove = useCallback((event) => {
+   const onPointerMove = useCallback((event) => {
     if (isDragging && !isPlaced) {
       const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera(event.pointer, camera);
@@ -128,8 +141,9 @@ const DraggableCard = ({ card, position, rotation, onHoverSlot, onPlaceCard }) =
         immediate: true
       });
 
-      const hoveredSlot = checkSlotHover([newPosition.x, newPosition.y, newPosition.z]);
-      onHoverSlot(hoveredSlot);
+      const newHoveredSlot = checkSlotHover([newPosition.x, newPosition.y, newPosition.z]);
+      setHoveredSlot(newHoveredSlot);
+      onHoverSlot(newHoveredSlot);
     }
   }, [isDragging, isPlaced, camera, boardPlane, setSpring, checkSlotHover, onHoverSlot]);
 
@@ -214,17 +228,35 @@ const DraggableCard = ({ card, position, rotation, onHoverSlot, onPlaceCard }) =
     }
   });
 
-  return (
-    <a.group 
-      ref={meshRef}
-      {...spring}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerEnter={onPointerEnter}
-      onPointerLeave={onPointerLeave}
-    >
-      <Card card={card} />
-    </a.group>
+  useEffect(() => {
+    if (showModel) {
+      console.log('showModel is true, Nihiliz model should be visible at position:', modelPosition);
+    }
+  }, [showModel, modelPosition]);
+
+ return (
+    <>
+      <a.group 
+        ref={meshRef}
+        {...spring}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
+      >
+        <Card card={card} />
+      </a.group>
+      {showModel && (card.name === 'Nihiliz' || card.name === 'Starlynx') && (
+        <Suspense fallback={null}>
+          <ModelHologram
+            modelName={card.name.toLowerCase()}
+            position={modelPosition}
+            playerIndex={hoveredSlot ? parseInt(hoveredSlot.split('-')[0]) : 0}
+            color={card.name === 'Nihiliz' ? '0.2, 0.8, 1.0' : '1.0, 0.5, 0.7'}
+          />
+        </Suspense>
+      )}
+    </>
   );
 };
 
